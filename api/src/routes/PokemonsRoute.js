@@ -5,28 +5,38 @@ const { fullData, querySearchApi, dataBD, querySearchDB } = require('../controll
 
 router.get('/', async (req, res, next) => {
     const { name } = req.query;
+    const allPokemons = await fullData()
+    if (name) {
+        name = name.toLowerCase();
+        try {
 
-    const allData = await fullData()
-
-    try {
-        if (name && name !== '') {
-            const pokemonInApi = await querySearchApi(name.toLowerCase()); //todos los pokemones que coincidieron con el name del query
-            const pokemonInDB = await querySearchDB(name.toLowerCase())//todos los pokemones que coincidieron en DB
-
-            const queryResult = pokemonInDB.concat(pokemonInApi) //concatenamos ambas busquedas(API & DB)
-
-            queryResult ? res.status(200).send(queryResult) : res.status(400).send('el pokemon no existe')
-            console.log('esto devuelve queryResult:', queryResult)
-
-        } else {
-            res.send(allData)
-            return
+        } catch (err) {
+            next(err)
         };
-    } catch (e) {
-        next(e)
-    }
+    } else {
+        res.status(200).send(allPokemons)
+    };
+
 
 });
+router.get('/:id', async (req, res, next) => {
+    const { id } = req.params
+    try {
+
+    } catch (err) {
+        next(err)
+    }
+});
+
+router.post('/', async (req, res, next) => {
+    try {
+
+    } catch (err) {
+        next(err)
+    }
+});
+
+
 
 // GET /pokemons:
 // Obtener un listado de los pokemons desde pokeapi.

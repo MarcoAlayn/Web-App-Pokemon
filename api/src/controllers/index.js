@@ -1,14 +1,10 @@
 const axios = require('axios');
 const { Pokemon, Type } = require('../db');
 const { Op } = require('sequelize');
-// limitar a 40 pokemones en la solicitud
-//12 pokemons por pagina en el front
-//
-// Imagen
-// Nombre
-// Tipos (Electrico, Fuego, Agua, etc)
+
 
 //request para traerme mis 40 Pokemones
+
 // pedido a la API
 
 const dataApi = async () => {
@@ -57,7 +53,7 @@ const dataBD = async () => {
 //uno mis dos solicitudes
 const fullData = async () => {
 
-    const querySearch = () => { }
+
     let apiInfo = await dataApi();
     let dbInfo = await dataBD();
     const concatData = [...apiInfo, dbInfo];
@@ -65,7 +61,7 @@ const fullData = async () => {
 };
 
 ///////////////////////////////////////////////////////////////////////////////////
-//SOLICITUD PARA MIS REQUEST POR QUERY
+////////////////SOLICITUD PARA MIS REQUEST POR QUERY
 
 const querySearchApi = async (name) => {
     const pokeQuery = await axios(`https://pokeapi.co/api/v2/pokemon/${name}`);
@@ -95,7 +91,7 @@ const querySearchApi = async (name) => {
 const querySearchDB = async (name) => {
     try {
         const pokemonInDb = await Pokemon.findAll({
-            where: { name: { [Op.like]: `%${name}` } },
+            where: { name: { [Op.iLike]: "%" + name + "%" } },
             include: {
                 model: Type,
                 attributes: ['name'],
@@ -106,19 +102,20 @@ const querySearchDB = async (name) => {
     } catch (error) {
         console.error(error)
     }
-
 }
+
+
 ///////////////////////////////////////////////////////////////////////////////////
-//SOLICITUD PARA MIS REQUEST POR PARAMS//
+////////////////SOLICITUD PARA MIS REQUEST POR PARAMS//
 
 // pedido a la API
-const paramApiSearch = () => { }
+const paramApiSearch = async (id) => { }
 
 //pedido a la DB
-const paramDBSearch = () => { }
+const paramDBSearch = async (id) => { }
 
 //uno mis dos solicitudes
-const fullParamSearch = () => { }
+const fullParamSearch = async (id) => { }
 
 module.exports = {
     dataApi, fullData, querySearchApi, dataBD, querySearchDB
