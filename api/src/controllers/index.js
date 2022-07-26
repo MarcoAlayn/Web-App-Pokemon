@@ -53,7 +53,6 @@ const dataBD = async () => {
 //uno mis dos solicitudes
 const fullData = async () => {
 
-
     let apiInfo = await dataApi();
     let dbInfo = await dataBD();
     const concatData = [...apiInfo, dbInfo];
@@ -81,7 +80,6 @@ const querySearchApi = async (name) => {
             image: pokeQuery.data.sprites.other.dream_world.front_default
 
         }
-        // console.log('esto devuelve pokequery:', pokeSearch)
         return pokeSearch
     } catch (error) {
         console.error(error)
@@ -90,7 +88,7 @@ const querySearchApi = async (name) => {
 
 const querySearchDB = async (name) => {
     try {
-        const pokemonInDb = await Pokemon.findAll({
+        const pokemonInDb = await Pokemon.findOne({
             where: { name: { [Op.iLike]: "%" + name + "%" } },
             include: {
                 model: Type,

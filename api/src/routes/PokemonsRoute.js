@@ -4,12 +4,13 @@ const router = Router();
 const { fullData, querySearchApi, dataBD, querySearchDB } = require('../controllers')
 
 router.get('/', async (req, res, next) => {
-    const { name } = req.query;
+    let { name } = req.query;
     const allPokemons = await fullData()
     if (name) {
         name = name.toLowerCase();
         try {
-
+            const aux = await querySearchApi(name);
+            res.status(200).send(aux)
         } catch (err) {
             next(err)
         };
