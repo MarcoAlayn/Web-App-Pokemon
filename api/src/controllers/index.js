@@ -8,10 +8,10 @@ const { Op } = require('sequelize');
 // pedido a la API
 
 const dataApi = async () => {
-    const request = await axios('https://pokeapi.co/api/v2/pokemon?limit=40');
-    const subRequest = await Promise.all(request.data.results.map(e => axios(e.url)))
-
     try {
+        const request = await axios('https://pokeapi.co/api/v2/pokemon?limit=40');
+        const subRequest = await Promise.all(request.data.results.map(e => axios(e.url)))
+
         const pokeApi = subRequest.map((pokemon) => {
             return {
                 id: pokemon.data.id,
@@ -52,21 +52,25 @@ const dataBD = async () => {
 
 //uno mis dos solicitudes
 const fullData = async () => {
+    try {
+        let apiInfo = await dataApi();
+        let dbInfo = await dataBD();
+        const concatData = [...apiInfo, dbInfo];
+        return concatData;
 
-    let apiInfo = await dataApi();
-    let dbInfo = await dataBD();
-    const concatData = [...apiInfo, dbInfo];
-    return concatData;
+    } catch (error) {
+        console.log(error)
+    }
 };
 
 ///////////////////////////////////////////////////////////////////////////////////
 ////////////////SOLICITUD PARA MIS REQUEST POR QUERY
 
 const querySearchApi = async (name) => {
-    const pokeQuery = await axios(`https://pokeapi.co/api/v2/pokemon/${name}`);
-
-
     try {
+
+        const pokeQuery = await axios(`https://pokeapi.co/api/v2/pokemon/${name}`);
+
         const pokeSearch = {
             name: pokeQuery.data.name,
             id: pokeQuery.data.id,
@@ -80,6 +84,7 @@ const querySearchApi = async (name) => {
             image: pokeQuery.data.sprites.other.dream_world.front_default
 
         }
+        console.log('esto es poke:', pokeSearch)
         return pokeSearch
     } catch (error) {
         console.error(error)
@@ -108,8 +113,8 @@ const querySearchDB = async (name) => {
 
 // pedido a la API
 const paramApiSearch = async (id) => {
-    const pokeParamApi = await axios(`https://pokeapi.co/api/v2/pokemon/${id}`)
     try {
+        const pokeParamApi = await axios(`https://pokeapi.co/api/v2/pokemon/${id}`)
         const pokeParam = {
             name: pokeParamApi.data.name,
             id: pokeParamApi.data.id,
@@ -151,12 +156,16 @@ const paramDBSearch = async (id) => {
 const fullParamSearch = async (id) => {
     const guion = id.includes('-')
 
-    if (guion) {
-        const apiParam = await paramApiSearch(id)
-        return apiParam
-    } else {
-        const dbParam = await paramDBSearch(id)
-        return dbParam
+    try {
+        if (guion) {
+            const apiParam = await paramApiSearch(id)
+            return apiParam
+        } else {
+            const dbParam = await paramDBSearch(id)
+            return dbParam
+        }
+    } catch (error) {
+        console.log(error)
     }
 }
 

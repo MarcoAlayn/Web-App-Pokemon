@@ -3,50 +3,54 @@ const axios = require('axios');
 const router = Router();
 const { fullData, querySearchApi, dataBD, querySearchDB, fullParamSearch, paramApiSearch } = require('../controllers')
 
-router.get('/', async (req, res, next) => {
+router.get('/', async (req, res) => {
     let { name } = req.query;
-    const allPokemons = await fullData()
-    if (name) {
-        // name = name.toLowerCase();
-        try {
-            const aux = await querySearchApi(name.toLowerCase());
-            res.status(200).json(aux)
-        } catch (err) {
-            return res.status(404).send(`pokemon ${name} no encontrado`)
-            // next(err)
-        };
-    } else {
-        res.status(200).send(allPokemons)
-    };
-});
-
-
-router.get('/:id', async (req, res, next) => {
-    const { id } = req.params
-    const allPokemons = await fullData()
-    if (id) {
-        try {
-            const justApi = await paramApiSearch(id)
-            res.status(200).send(justApi)
-            // const paramId = await fullParamSearch(id)
-            // res.status(200).send(paramId)
-        } catch (err) {
-            next(err)
-        }
-    } else {
-        res.status(200).send(allPokemons)
-    }
-});
-
-
-
-router.post('/', async (req, res, next) => {
     try {
+        const allPokemons = await fullData()
 
-    } catch (err) {
-        next(err)
+        if (name) {
+            const aux = await querySearchApi(name.toLowerCase());
+            aux
+                ?
+                res.status(200).json(aux)
+                : res.status(404).json({ message: `pokemon ${name} not found` })
+        } else {
+            res.status(200).send(allPokemons)
+        };
+    } catch (error) {
+        res.status(500).json({ message: "Error", error })
     }
 });
+
+
+router.get('/:id', async (req, res) => {
+    const { id } = req.params
+    try {
+        const allPokemons = await fullData()
+        if (id) {
+            // const aux = await fullParamSearch(id)
+            const aux = await paramApiSearch(id)
+            aux
+                ? res.status(200).json(aux)
+                : res.status(400).json({ message: `id ${id} not found` })
+        } else {
+            res.status(200).json(aux)
+        }
+
+    } catch (error) {
+        res.status(500).json({ message: 'Error', error })
+    }
+})
+
+
+
+// router.post('/', async (req, res, next) => {
+//     try {
+
+//     } catch (err) {
+//         next(err)
+//     }
+// });
 
 
 
