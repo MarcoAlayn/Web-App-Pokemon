@@ -107,14 +107,59 @@ const querySearchDB = async (name) => {
 ////////////////SOLICITUD PARA MIS REQUEST POR PARAMS//
 
 // pedido a la API
-const paramApiSearch = async (id) => { }
+const paramApiSearch = async (id) => {
+    const pokeParamApi = await axios(`https://pokeapi.co/api/v2/pokemon/${id}`)
+    try {
+        const pokeParam = {
+            name: pokeParamApi.data.name,
+            id: pokeParamApi.data.id,
+            life: pokeParamApi.data.stats.find(e => e.stat.name === 'hp').base_stat,
+            attack: pokeParamApi.data.stats.find(e => e.stat.name === 'attack').base_stat,
+            defense: pokeParamApi.data.stats.find(e => e.stat.name === 'defense').base_stat,
+            speed: pokeParamApi.data.stats.find(e => e.stat.name === 'speed').base_stat,
+            height: pokeParamApi.data.height,
+            weight: pokeParamApi.data.weight,
+            type: pokeParamApi.data.types.map(e => e.type.name),
+            image: pokeParamApi.data.sprites.other.dream_world.front_default
+        }
+        console.log('esto me trae pokeParam:', pokeParam)
+        return pokeParam
+    } catch (error) {
+        console.error(error)
+    }
+}
 
 //pedido a la DB
-const paramDBSearch = async (id) => { }
+const paramDBSearch = async (id) => {
+    try {
+        const pokeParamDB = await Pokemon.findByPk({
+            id,
+            include: {
+                model: Type,
+                attributes: ['name'],
+                through: { attributes: [] }
+            }
+        })
+
+        return pokeParamDB
+    } catch (error) {
+        console.error(error)
+    }
+}
 
 //uno mis dos solicitudes
-const fullParamSearch = async (id) => { }
+const fullParamSearch = async (id) => {
+    const guion = id.includes('-')
+
+    if (guion) {
+        const apiParam = await paramApiSearch(id)
+        return apiParam
+    } else {
+        const dbParam = await paramDBSearch(id)
+        return dbParam
+    }
+}
 
 module.exports = {
-    dataApi, fullData, querySearchApi, dataBD, querySearchDB
+    dataApi, fullData, querySearchApi, dataBD, querySearchDB, fullParamSearch, paramApiSearch
 }

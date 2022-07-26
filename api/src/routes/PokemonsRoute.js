@@ -1,33 +1,44 @@
 const { Router } = require('express');
 const axios = require('axios');
 const router = Router();
-const { fullData, querySearchApi, dataBD, querySearchDB } = require('../controllers')
+const { fullData, querySearchApi, dataBD, querySearchDB, fullParamSearch, paramApiSearch } = require('../controllers')
 
 router.get('/', async (req, res, next) => {
     let { name } = req.query;
     const allPokemons = await fullData()
     if (name) {
-        name = name.toLowerCase();
+        // name = name.toLowerCase();
         try {
-            const aux = await querySearchApi(name);
-            res.status(200).send(aux)
+            const aux = await querySearchApi(name.toLowerCase());
+            res.status(200).json(aux)
         } catch (err) {
-            next(err)
+            return res.status(404).send(`pokemon ${name} no encontrado`)
+            // next(err)
         };
     } else {
         res.status(200).send(allPokemons)
     };
-
-
 });
+
+
 router.get('/:id', async (req, res, next) => {
     const { id } = req.params
-    try {
-
-    } catch (err) {
-        next(err)
+    const allPokemons = await fullData()
+    if (id) {
+        try {
+            const justApi = await paramApiSearch(id)
+            res.status(200).send(justApi)
+            // const paramId = await fullParamSearch(id)
+            // res.status(200).send(paramId)
+        } catch (err) {
+            next(err)
+        }
+    } else {
+        res.status(200).send(allPokemons)
     }
 });
+
+
 
 router.post('/', async (req, res, next) => {
     try {
