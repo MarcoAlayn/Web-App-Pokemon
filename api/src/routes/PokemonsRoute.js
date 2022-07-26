@@ -1,7 +1,8 @@
 const { Router } = require('express');
 const axios = require('axios');
 const router = Router();
-const { fullData, querySearchApi, dataBD, querySearchDB, fullParamSearch, paramApiSearch } = require('../controllers')
+const { fullData, querySearchApi, dataBD, querySearchDB, fullParamSearch, paramApiSearch } = require('../controllers');
+const { Pokemon, Type } = require('../db.js');
 
 router.get('/', async (req, res) => {
     let { name } = req.query;
@@ -33,8 +34,9 @@ router.get('/:id', async (req, res) => {
             aux
                 ? res.status(200).json(aux)
                 : res.status(400).json({ message: `id ${id} not found` })
+
         } else {
-            res.status(200).json(aux)
+            res.status(200).json(fullData)
         }
 
     } catch (error) {
@@ -42,34 +44,30 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+router.post('/', async (req, res) => {
+    const { name, image, life, attack, defense, speed, height, weight, types } = req.body
 
+    try {
+        let newPokemon = await Pokemon.create({
+            name,
+            image,
+            life,
+            attack,
+            defense,
+            speed,
+            height,
+            weight
+        })
 
-// router.post('/', async (req, res, next) => {
-//     try {
+        // const findType = await Type.findAll({ where: { name: types } });
 
-//     } catch (err) {
-//         next(err)
-//     }
-// });
+        // await newPokemon.addType(findType);
 
-
-
-// GET /pokemons:
-// Obtener un listado de los pokemons desde pokeapi.
-// Debe devolver solo los datos necesarios para la ruta principal
-
-// GET /pokemons/{idPokemon}:
-// Obtener el detalle de un pokemon en particular
-// Debe traer solo los datos pedidos en la ruta de detalle de pokemon
-// Tener en cuenta que tiene que funcionar tanto para un id de un pokemon existente en pokeapi o uno creado por ustedes
-
-// GET /pokemons?name="...":
-// Obtener el pokemon que coincida exactamente con el nombre pasado como query parameter (Puede ser de pokeapi o creado por nosotros)
-// Si no existe ningún pokemon mostrar un mensaje adecuado
-
-// POST /pokemons:
-// Recibe los datos recolectados desde el formulario controlado de la ruta de creación de pokemons por body
-// Crea un pokemon en la base de datos relacionado con sus tipos.
+        res.status(200).json(newPokemon)
+    } catch (error) {
+        res.status(500).json({ message: 'Error', error })
+    }
+});
 
 
 

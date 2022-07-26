@@ -27,6 +27,7 @@ const dataApi = async () => {
 
             }
         })
+        // console.log('esto me trae el proto:', Pokemon.prototype)
         return pokeApi;
     } catch (error) {
         console.log(error)
