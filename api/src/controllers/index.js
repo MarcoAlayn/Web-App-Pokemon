@@ -112,8 +112,7 @@ const dbQuery = async (name) => {
                 name: {
                     [Op.iLike]: "%" + name + "%",
                 },
-            },
-            // order: [["name", "ASC"]],
+            }
         });
 
         console.log('esto es nameQuery:', nameQuery)

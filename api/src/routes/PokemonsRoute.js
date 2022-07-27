@@ -11,13 +11,20 @@ router.get('/', async (req, res) => {
 
         if (name) {
 
-            // const aux = await querySearchApi(name.toLocaleLowerCase()) correcto name in api
+            const aux = await querySearchApi(name.toLocaleLowerCase()) //correcto name in api
 
-            const auxdb = await dbQuery(name.toLowerCase())
-            console.log('esto me trae auxdb:', auxdb)
-            auxdb ?
-                res.status(200).json(auxdb)
-                : res.status(404).json({ message: `pokemon ${name} not found` })
+            const auxdb = await dbQuery(name.toLowerCase())// correcto name in db
+
+
+            aux ?
+                res.status(200).json(aux)
+                : auxdb ?
+                    res.status(200).json(auxdb)
+                    : res.status(404).json({ message: `pokemon ${name} not found` })
+
+            // mixDataQuery ?
+            //     res.status(200).json(mixDataQuery)
+            //     : res.status(404).json({ message: `pokemon ${name} not found` })
         } else {
             res.status(200).send(allPokemons)
         };
