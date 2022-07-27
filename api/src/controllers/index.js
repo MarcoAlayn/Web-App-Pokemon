@@ -27,7 +27,8 @@ const dataApi = async () => {
 
             }
         })
-        // console.log('esto me trae el proto:', Pokemon.prototype)
+        // console.log('esto me trae el proto de mi modelo Pokemon:', Pokemon.prototype)
+        // console.log('esto me trae el pokeApi:', pokeApi)
         return pokeApi;
     } catch (error) {
         console.log(error)
@@ -37,13 +38,17 @@ const dataApi = async () => {
 //pedido a la DB
 const dataBD = async () => {
     try {
-        return await Pokemon.findAll({
-            include: [{
+        const infoDb = await Pokemon.findAll({
+            include: {
                 model: Type,
-                attributes: ['name'],
-                through: { attributes: [] }
-            }]
+                atributes: ['name'],
+                through: {
+                    attributes: [],
+                }
+            }
         })
+        console.log('esto es infoDb:', infoDb)
+        return infoDb
     } catch (error) {
         console.log(error)
     }
@@ -56,7 +61,8 @@ const fullData = async () => {
     try {
         let apiInfo = await dataApi();
         let dbInfo = await dataBD();
-        const concatData = [...apiInfo, dbInfo];
+        const concatData = await apiInfo.concat(dbInfo);
+        // console.log('esto es concatData:', concatData)
         return concatData;
 
     } catch (error) {
@@ -85,29 +91,50 @@ const querySearchApi = async (name) => {
             image: pokeQuery.data.sprites.other.dream_world.front_default
 
         }
-        console.log('esto es poke:', pokeSearch)
+        console.log('esto es pokeSearch:', pokeSearch)
         return pokeSearch
     } catch (error) {
         console.error(error)
     }
 };
 
-const querySearchDB = async (name) => {
+const dbQuery = async (name) => {
     try {
-        const pokemonInDb = await Pokemon.findOne({
-            where: { name: { [Op.iLike]: "%" + name + "%" } },
+        let nameQuery = await Pokemon.findAll({
             include: {
                 model: Type,
-                attributes: ['name'],
-                through: { attributes: [] }
-            }
-        })
-        return pokemonInDb
+                attributes: ["name"],
+                through: {
+                    attributes: [],
+                },
+            },
+            where: {
+                name: {
+                    [Op.iLike]: "%" + name + "%",
+                },
+            },
+            // order: [["name", "ASC"]],
+        });
+
+        console.log('esto es nameQuery:', nameQuery)
+        return nameQuery
     } catch (error) {
         console.error(error)
     }
 }
 
+const fullDataQuery = async (name) => {
+    try {
+        let apiInfoQuery = await querySearchApi(name);
+        let dbInfoQuery = await dbQuery(name);
+        const concatDataQuery = await apiInfoQuery.concat(dbInfoQuery);
+        // console.log('esto es concatData:', concatData)
+        return concatDataQuery;
+
+    } catch (error) {
+        console.log(error)
+    }
+};
 
 ///////////////////////////////////////////////////////////////////////////////////
 ////////////////SOLICITUD PARA MIS REQUEST POR PARAMS//
@@ -128,7 +155,7 @@ const paramApiSearch = async (id) => {
             type: pokeParamApi.data.types.map(e => e.type.name),
             image: pokeParamApi.data.sprites.other.dream_world.front_default
         }
-        console.log('esto me trae pokeParam:', pokeParam)
+        console.log('esto me trae pokeParamApi:', pokeParamApi)
         return pokeParam
     } catch (error) {
         console.error(error)
@@ -138,15 +165,17 @@ const paramApiSearch = async (id) => {
 //pedido a la DB
 const paramDBSearch = async (id) => {
     try {
-        return await Pokemon.findByPk({
-            id,
+        const pokeParamDb = await Pokemon.findByPk(id, {
             include: {
                 model: Type,
-                attributes: ['name'],
-                through: { attributes: [] }
+                attributes: ["name"],
+                through: {
+                    attributes: []
+                }
             }
-        })
-
+        });
+        console.log('esto me trae pokeParamDb:', pokeParamDb)
+        return pokeParamDb
     } catch (error) {
         console.error(error)
     }
@@ -171,5 +200,5 @@ const fullParamSearch = async (id) => {
 }
 
 module.exports = {
-    dataApi, fullData, querySearchApi, dataBD, querySearchDB, fullParamSearch, paramApiSearch
+    dataApi, fullData, querySearchApi, dataBD, fullParamSearch, paramApiSearch, dbQuery, fullDataQuery
 }

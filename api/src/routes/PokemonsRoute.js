@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const axios = require('axios');
 const router = Router();
-const { fullData, querySearchApi, dataBD, querySearchDB, fullParamSearch, paramApiSearch } = require('../controllers');
+const { fullData, querySearchApi, dataBD, fullParamSearch, paramApiSearch, dbQuery } = require('../controllers');
 const { Pokemon, Type } = require('../db.js');
 
 router.get('/', async (req, res) => {
@@ -10,16 +10,13 @@ router.get('/', async (req, res) => {
         const allPokemons = await fullData()
 
         if (name) {
-            const aux = await querySearchApi(name.toLowerCase());
-            const dataBase = await dataBD()
 
-            // buscamos el query name en la base de datos
-            const queryInDB = dataBase.filter(poke => poke.name.toLowerCase().includes(name.toLowerCase()))
-            const universalData = queryInDB.concat(aux)
+            // const aux = await querySearchApi(name.toLocaleLowerCase()) correcto name in api
 
-            universalData
-                ?
-                res.status(200).json(universalData)
+            const auxdb = await dbQuery(name.toLowerCase())
+            console.log('esto me trae auxdb:', auxdb)
+            auxdb ?
+                res.status(200).json(auxdb)
                 : res.status(404).json({ message: `pokemon ${name} not found` })
         } else {
             res.status(200).send(allPokemons)
