@@ -29,8 +29,8 @@ router.get('/:id', async (req, res) => {
     try {
         const allPokemons = await fullData()
         if (id) {
-            // const aux = await fullParamSearch(id)
-            const aux = await paramApiSearch(id)
+            const aux = await fullParamSearch(id)
+            // const aux = await paramApiSearch(id)
             aux
                 ? res.status(200).json(aux)
                 : res.status(400).json({ message: `id ${id} not found` })
