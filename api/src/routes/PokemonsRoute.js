@@ -11,7 +11,13 @@ router.get('/', async (req, res) => {
 
         if (name) {
             const aux = await querySearchApi(name.toLowerCase());
-            aux
+            const dataBase = await dataBD()
+
+            // buscamos el query name en la base de datos
+            const queryInDB = dataBase.find(name => name.toLowerCase().includes(name.toLowerCase()))
+            const universalData = queryInDB(aux)
+
+            universalData
                 ?
                 res.status(200).json(aux)
                 : res.status(404).json({ message: `pokemon ${name} not found` })
@@ -56,12 +62,13 @@ router.post('/', async (req, res) => {
             defense,
             speed,
             height,
-            weight
+            weight,
+            types: types
         })
 
-        // const findType = await Type.findAll({ where: { name: types } });
+        const findType = await Type.findAll({ where: { name: types } });
 
-        // await newPokemon.addType(findType);
+        await newPokemon.addType(findType);
 
         res.status(200).json(newPokemon)
     } catch (error) {
