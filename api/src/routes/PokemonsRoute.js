@@ -14,12 +14,12 @@ router.get('/', async (req, res) => {
             const dataBase = await dataBD()
 
             // buscamos el query name en la base de datos
-            const queryInDB = dataBase.find(name => name.toLowerCase().includes(name.toLowerCase()))
-            const universalData = queryInDB(aux)
+            const queryInDB = dataBase.filter(poke => poke.name.toLowerCase().includes(name.toLowerCase()))
+            const universalData = queryInDB.concat(aux)
 
             universalData
                 ?
-                res.status(200).json(aux)
+                res.status(200).json(universalData)
                 : res.status(404).json({ message: `pokemon ${name} not found` })
         } else {
             res.status(200).send(allPokemons)

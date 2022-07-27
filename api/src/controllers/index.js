@@ -138,7 +138,7 @@ const paramApiSearch = async (id) => {
 //pedido a la DB
 const paramDBSearch = async (id) => {
     try {
-        const pokeParamDB = await Pokemon.findByPk({
+        return await Pokemon.findByPk({
             id,
             include: {
                 model: Type,
@@ -147,7 +147,6 @@ const paramDBSearch = async (id) => {
             }
         })
 
-        return pokeParamDB
     } catch (error) {
         console.error(error)
     }
@@ -163,6 +162,7 @@ const fullParamSearch = async (id) => {
             return apiParam
         } else {
             const dbParam = await paramDBSearch(id)
+            console.log('esto me trae dbParam:', dbParam)
             return dbParam
         }
     } catch (error) {
