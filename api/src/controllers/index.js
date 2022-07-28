@@ -9,10 +9,27 @@ const { Pokemon, Type } = require('../db.js');
 
 const dataApi = async () => {
     try {
-        const request = await axios('https://pokeapi.co/api/v2/pokemon?limit=40');
-        const subRequest = await Promise.all(request.data.results.map(e => axios(e.url)))
 
-        const pokeApi = subRequest.map((pokemon) => {
+
+        // //get 40 pokemones usando el filtro de la api
+        // const request = await axios('https://pokeapi.co/api/v2/pokemon?limit=40');
+        // const concatRequest = await Promise.all(request.data.results.map(e => axios(e.url)))
+        // console.log('esto me trae el subRequest:', subRequest)
+
+        //mi primeros 20 pokes
+        const urlRequest = await axios("https://pokeapi.co/api/v2/pokemon")
+        const urlRequestOne = await Promise.all(urlRequest.data.results.map(e => axios(e.url)))
+
+        //mi segundos 20 pokes
+
+        const urlRequestNext = await axios(urlRequest.data.next)
+        const urlRequestTwo = await Promise.all(urlRequestNext.data.results.map(e => axios(e.url)))
+
+        //concatenamos todas las url
+        const concatRequest = await Promise.all(urlRequestOne.concat(urlRequestTwo))
+
+
+        const pokeApi = concatRequest.map((pokemon) => {
             return {
                 id: pokemon.data.id,
                 name: pokemon.data.name,
@@ -47,7 +64,7 @@ const dataBD = async () => {
                 }
             }
         })
-        console.log('esto es infoDb:', infoDb)
+        // console.log('esto es infoDb:', infoDb)
         return infoDb
     } catch (error) {
         console.log(error)
