@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const axios = require('axios');
 const router = Router();
-const { fullData, querySearchApi, dataBD, fullParamSearch, paramApiSearch, dbQuery } = require('../controllers');
+const { fullData, querySearchApi, paramApiSearch, dbQuery, paramDBSearch } = require('../controllers');
 const { Pokemon, Type } = require('../db.js');
 
 router.get('/', async (req, res) => {
@@ -22,9 +22,7 @@ router.get('/', async (req, res) => {
                     res.status(200).json(auxdb)
                     : res.status(404).json({ message: `pokemon ${name} not found` })
 
-            // mixDataQuery ?
-            //     res.status(200).json(mixDataQuery)
-            //     : res.status(404).json({ message: `pokemon ${name} not found` })
+
         } else {
             res.status(200).send(allPokemons)
         };
@@ -36,18 +34,24 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     const { id } = req.params
+    // const idConGuion = id.includes('-')
     try {
-        const allPokemons = await fullData()
+        const allPoke = await fullData()
         if (id) {
-            const aux = await fullParamSearch(id)
-            // const aux = await paramApiSearch(id)
-            aux
-                ? res.status(200).json(aux)
-                : res.status(400).json({ message: `id ${id} not found` })
+            const idInDb = await paramDBSearch(id) //correcto id in api
+
+            const idInApi = await paramApiSearch(id)//correcto id in api
+
+            idInApi ?
+                res.status(200).json(idInApi)
+                : idInDb ?
+                    res.status(200).json(idInDb)
+                    : res.status(404).json({ message: ` id ${id} not found` })
+
 
         } else {
-            res.status(200).json(fullData)
-        }
+            res.status(200).send(allPoke)
+        };
 
     } catch (error) {
         res.status(500).json({ message: 'Error', error })

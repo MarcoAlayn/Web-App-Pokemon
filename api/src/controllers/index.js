@@ -122,18 +122,7 @@ const dbQuery = async (name) => {
     }
 }
 
-const fullDataQuery = async (name) => {
-    try {
-        let apiInfoQuery = await querySearchApi(name);
-        let dbInfoQuery = await dbQuery(name);
-        const concatDataQuery = await apiInfoQuery.concat(dbInfoQuery);
-        // console.log('esto es concatData:', concatData)
-        return concatDataQuery;
 
-    } catch (error) {
-        console.log(error)
-    }
-};
 
 ///////////////////////////////////////////////////////////////////////////////////
 ////////////////SOLICITUD PARA MIS REQUEST POR PARAMS//
@@ -173,7 +162,7 @@ const paramDBSearch = async (id) => {
                 }
             }
         });
-        console.log('esto me trae pokeParamDb:', pokeParamDb)
+        console.log('esto me trae paramDBSearch:', paramDBSearch)
         return pokeParamDb
     } catch (error) {
         console.error(error)
@@ -181,23 +170,23 @@ const paramDBSearch = async (id) => {
 }
 
 //uno mis dos solicitudes
-const fullParamSearch = async (id) => {
-    const guion = id.includes('-')
+// const fullParamSearch = async (id) => {
+//     const guion = id.includes('-')
 
-    try {
-        if (guion) {
-            const apiParam = await paramApiSearch(id)
-            return apiParam
-        } else {
-            const dbParam = await paramDBSearch(id)
-            console.log('esto me trae dbParam:', dbParam)
-            return dbParam
-        }
-    } catch (error) {
-        console.log(error)
-    }
-}
+//     try {
+//         if (guion) {
+//             const apiParam = await paramApiSearch(id)
+//             return apiParam
+//         } else {
+//             const dbParam = await paramDBSearch(id)
+//             console.log('esto me trae dbParam:', dbParam)
+//             return dbParam
+//         }
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
 
 module.exports = {
-    dataApi, fullData, querySearchApi, dataBD, fullParamSearch, paramApiSearch, dbQuery, fullDataQuery
+    dataApi, dataBD, fullData, querySearchApi, dbQuery, paramApiSearch, paramDBSearch
 }
