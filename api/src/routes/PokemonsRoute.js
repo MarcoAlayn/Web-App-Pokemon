@@ -11,15 +11,15 @@ router.get('/', async (req, res) => {
 
         if (name) {
 
-            const aux = await querySearchApi(name.toLocaleLowerCase()) //correcto name in api
+            const nameInApi = await querySearchApi(name.toLocaleLowerCase()) //correcto name in api
 
-            const auxdb = await dbQuery(name.toLowerCase())// correcto name in db
+            const nameInDb = await dbQuery(name.toLowerCase())// correcto name in db
 
 
-            aux ?
-                res.status(200).json(aux)
-                : auxdb ?
-                    res.status(200).json(auxdb)
+            nameInApi ?
+                res.status(200).json(nameInApi)
+                : nameInDb ?
+                    res.status(200).json(nameInDb)
                     : res.status(404).json({ message: `pokemon ${name} not found` })
 
 
@@ -37,7 +37,9 @@ router.get('/:id', async (req, res) => {
     // const idConGuion = id.includes('-')
     try {
         const allPoke = await fullData()
+
         if (id) {
+
             const idInDb = await paramDBSearch(id) //correcto id in api
 
             const idInApi = await paramApiSearch(id)//correcto id in api

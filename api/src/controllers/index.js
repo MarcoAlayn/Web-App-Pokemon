@@ -1,6 +1,6 @@
 const axios = require('axios');
 const { Pokemon, Type } = require('../db.js');
-const { Op } = require('sequelize');
+// const { Op } = require('sequelize');
 
 
 //request para traerme mis 40 Pokemones
@@ -100,17 +100,13 @@ const querySearchApi = async (name) => {
 
 const dbQuery = async (name) => {
     try {
-        let nameQuery = await Pokemon.findAll({
+        const nameQuery = await Pokemon.findOne({
+            where: { name: name },
             include: {
                 model: Type,
                 attributes: ["name"],
                 through: {
                     attributes: [],
-                },
-            },
-            where: {
-                name: {
-                    [Op.iLike]: "%" + name + "%",
                 },
             }
         });
