@@ -1,8 +1,12 @@
-import React from 'react'
+import React from "react"
+import AllCards from "./AllCards"
 
-function Home() {
+const Home = () => {
     return (
-        <div>Home</div>
+        <div>
+            <div>Home</div>
+            <AllCards />
+        </div>
     )
 }
 

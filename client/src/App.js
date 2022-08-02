@@ -5,11 +5,13 @@ import LandingPage from './components/LandingPage';
 import DetailPokemon from './components/DetailPokemon';
 import CreatePokemon from './components/CreatePokemon';
 import PageNotFound from './components/PageNotFound';
+import NavBar from './components/NavBar';
 
 
 function App() {
   return (
     <div className='App'>
+      <NavBar />
       <Routes>
         <Route exact path={'/'} element={<LandingPage />} />
         <Route exact path={'/home'} element={<Home />} />

@@ -14,17 +14,16 @@ export const GET_BY_ATTACk = "GET_BY_ATTACk"; //y descendente o descendente
 
 export const getAllPokemons = () => {
     return async (dispatch) => {
-        try {
 
-            const { data } = await axios("http://localhost:3001/pokemons")
-            return dispatch({
-                type: GET_ALL_POKEMONS,
-                payload: data
-            })
 
-        } catch (error) {
-            console.log(error)
-        }
+        const pokemons = await axios.get("http://localhost:3001/pokemons")
+        console.log("esto es data del dispatch get allPokemons:", pokemons.data)
+        return dispatch({
+            type: GET_ALL_POKEMONS,
+            payload: pokemons.data
+        })
+
+
     }
 }
 
