@@ -76,10 +76,26 @@ const dataBD = async () => {
 //uno mis dos solicitudes
 const fullData = async () => {
     try {
-        let apiInfo = await dataApi();
-        let dbInfo = await dataBD();
-        const concatData = await apiInfo.concat(dbInfo);
-        // console.log('esto es concatData:', concatData)
+        const apiInfo = await dataApi();
+        const dbInfo = await dataBD();
+
+        const mapeo = dbInfo.map(poke => {
+            return {
+                id: poke.id,
+                name: poke.name,
+                image: poke.image,
+                life: poke.life,
+                attack: poke.attack,
+                defense: poke.defense,
+                speed: poke.speed,
+                height: poke.height,
+                weight: poke.weight,
+                create: poke.create,
+                type: poke.types.map(e => e.name)
+            }
+        })
+        const concatData = await apiInfo.concat(mapeo);
+        console.log('esto es concatData:', concatData)
         return concatData;
 
     } catch (error) {
