@@ -95,7 +95,7 @@ const fullData = async () => {
             }
         })
         const concatData = await apiInfo.concat(mapeo);
-        console.log('esto es concatData:', concatData)
+        // console.log('esto es concatData:', concatData)
         return concatData;
 
     } catch (error) {
