@@ -3,14 +3,14 @@ import axios from 'axios'
 //RUTAS BACKEND
 export const GET_ALL_POKEMONS = "GET_ALL_POKEMONS";
 export const GET_ALL_TYPES = "GET_ALL_TYPES";
-
+export const CREATE_POKEMON = "CREATE_POKEMON";
 
 // //FILTROS
+// export const GET_BY_CREATED = "GET_BY_CREATED";
 // export const GET_BY_NAME = "GET_BY_NAME";
 // export const GET_BY_ID = "GET_BY_ID";
 // export const GET_BY_TYPE = "GET_BY_TYPE";
 // export const ALPHABETIC_ORDER = "ALPHABETIC_ORDER"; //y descendente o descendente
-// export const GET_BY_CREATED = "GET_BY_CREATED";
 // export const GET_BY_ATTACk = "GET_BY_ATTACk"; //y descendente o descendente
 
 export const getAllPokemons = () => {
@@ -32,6 +32,17 @@ export const getAllTypes = () => {
         return dispatch({
             type: GET_ALL_TYPES,
             payload: types.data
+        })
+    }
+}
+
+export const postPokemon = (payload) => {
+    return async (dispatch) => {
+        const postData = await axios.post("http://localhost:3001/pokemons", payload)
+        console.log("esto es data del dispatch get postData:", postData.data)
+        return dispatch({
+            type: CREATE_POKEMON,
+
         })
     }
 }
