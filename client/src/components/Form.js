@@ -61,6 +61,7 @@ export default function Formulario() {
 
     function handleOnSubmit(e) {
         e.preventDefault();
+        !personaje.image ? setPersonaje({ ...personaje.image = 'https://roastbrief.com.mx/wp-content/uploads/2021/01/BoBJLUKIMAAQgyA.png' }) : setPersonaje(personaje);
         if (Object.keys(errors).length === 0 && personaje.name.length && personaje.type.length > 0) {
             dispatch(postPokemon(personaje));
             dispatch(getPokemonByName(personaje.name))
@@ -103,12 +104,6 @@ export default function Formulario() {
                     <input type="text" name="name" value={personaje.name} autoComplete='off' onChange={handleOnChange} />
                     {errors.name && <p className="error">{errors.name}</p>}
                 </div>
-                <div className="form-life">
-                    <label htmlFor="life">Life:</label>
-                    <input type="range" name="life" value={personaje.life} min="1" max="120" onChange={handleOnChange} />
-                    <span>{personaje.life}</span>
-                    {errors.life && <p className="error">{errors.life}</p>}
-                </div>
                 <div className='form-attack'>
                     <label htmlFor="attack">Attack:</label>
                     <input type="range" min="1" max="120" name="attack" value={personaje.attack} onChange={handleOnChange} />
@@ -139,12 +134,19 @@ export default function Formulario() {
                     <span className='weight-value'>{personaje.weight}</span>
                     {errors.weight && <p className="error">{errors.weight}</p>}
                 </div>
+                <div className="form-life">
+                    <label htmlFor="life">Life:</label>
+                    <input type="range" name="life" value={personaje.life} min="1" max="120" onChange={handleOnChange} />
+                    <span>{personaje.life}</span>
+                    {errors.life && <p className="error">{errors.life}</p>}
+                </div>
                 <div className='form-image'>
                     <label htmlFor="image">Image:</label>
                     <input type="text" name="image" value={personaje.image}
                         pattern="https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$"
                         placeholder=' paste url image...'
                         autoComplete='off'
+                        required='required'
                         onChange={handleOnChange} />
                     {errors.image && <p className="error">{errors.image}</p>}
                 </div>
