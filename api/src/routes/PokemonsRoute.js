@@ -69,7 +69,7 @@ router.post('/', async (req, res) => {
         speed,
         height,
         weight,
-        types,
+        type,
         image
     } = req.body;
 
@@ -87,7 +87,7 @@ router.post('/', async (req, res) => {
         })
 
         const postType = await Type.findAll({
-            where: { name: types }
+            where: { name: type }
         })
 
         await postData.addTypes(postType)
