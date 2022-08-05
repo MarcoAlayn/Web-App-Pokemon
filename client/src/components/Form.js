@@ -72,38 +72,64 @@ export default function Formulario() {
         setPersonaje(personaje)
     }
 
+    function handleSelect(e) {
+        if (personaje.type.filter(type => type === e.target.value).length) {
+            personaje.type.pop()
+            alert('Type removed')
+        }
+
+        setPersonaje({
+            ...personaje,
+            type: [...personaje.type, e.target.value]
+        })
+    }
+
+    function handleClick(e) {
+        e.preventDefault();
+        setPersonaje({
+            ...personaje,
+            type: personaje.type.filter(type => type !== e.target.id)
+
+        })
+    }
+
     return (
         <div className="formulario" >
             <h1>Create Your Pokemon </h1>
             <form onSubmit={e => handleOnSubmit(e)}>
                 <div className="form-name">
                     <label htmlFor="name">Name:</label>
-                    <input type="text" name="name" value={personaje.name} onChange={e => handleOnChange(e)} />
+                    <input type="text" name="name" value={personaje.name} autoComplete='off' onChange={handleOnChange} />
                     {errors.name && <p className="error">{errors.name}</p>}
                 </div>
                 <div className='form-attack'>
                     <label htmlFor="attack">Attack:</label>
-                    <input type="range" min="1" max="120" name="attack" value={personaje.attack} onChange={e => handleOnChange(e)} />
+                    <input type="range" min="1" max="120" name="attack" value={personaje.attack} onChange={handleOnChange} />
+                    <span className='attack-value'>{personaje.attack}</span>
                     {errors.attack && <p className="error">{errors.attack}</p>}
                 </div>
                 <div className='form-defense'>
                     <label htmlFor="defense">Defense:</label>
-                    <input type="range" min="1" max="120" name="defense" value={personaje.defense} onChange={e => handleOnChange(e)} />
+                    <input type="range" min="1" max="120" name="defense" value={personaje.defense} onChange={handleOnChange} />
+                    <span className='defense-value'>{personaje.defense}</span>
                     {errors.defense && <p className="error">{errors.defense}</p>}
                 </div>
                 <div className='form-speed'>
                     <label htmlFor="speed">Speed:</label>
-                    <input type="range" min="1" max="120" name="speed" value={personaje.speed} onChange={e => handleOnChange(e)} />
+                    <input type="range" min="1" max="120" name="speed" value={personaje.speed} onChange={handleOnChange} />
+                    <span className='speed-value'>{personaje.speed}</span>
                     {errors.speed && <p className="error">{errors.speed}</p>}
                 </div>
                 <div className='form-height'>
                     <label htmlFor="height">Height:</label>
-                    <input type="range" min="1" max="120" name="height" value={personaje.height} onChange={e => handleOnChange(e)} />
+                    <input type="range" min="1" max="120" name="height" value={personaje.height} onChange={handleOnChange} />
+                    <span className='height-value'>{personaje.height}</span>
                     {errors.height && <p className="error">{errors.height}</p>}
                 </div>
                 <div className='form-weight'>
                     <label htmlFor="weight">Weight:</label>
-                    <input type="range" min="1" max="120" name="weight" value={personaje.weight} onChange={e => handleOnChange(e)} />
+                    <input type="range" min="1" max="120" name="weight" value={personaje.weight} onChange={handleOnChange} />
+                    <span className='weight-value'>{personaje.weight}</span>
                     {errors.weight && <p className="error">{errors.weight}</p>}
                 </div>
                 <div className='form-image'>
@@ -111,19 +137,30 @@ export default function Formulario() {
                     <input type="text" name="image" value={personaje.image}
                         pattern="https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$"
                         placeholder=' paste url image...'
-                        onChange={e => handleOnChange(e)} />
+                        autoComplete='off'
+                        onChange={handleOnChange} />
                     {errors.image && <p className="error">{errors.image}</p>}
                 </div>
                 <div className='form-type'>
-                    <select className='values' value='default' onChange={e => handleOnChange(e)}>
+                    <select className='values' value='default' onChange={e => handleSelect(e)}>
                         <option value='default' disabled>Select up to Two Types</option>
                         {
                             personaje.type.length < 2 ? allTypes.map(type => (
-                                <option key={type.id} value={type.id}>{type.name}</option>
+                                <option key={type.id} value={type.name}>{type.name}</option>
                             )) : <option value='full' disabled>You have already selected two types</option>
                         }
                     </select>
                 </div>
+                <div className='create-type'>
+                    {personaje.type.map(selectedType => (
+                        <div key={selectedType} className='type-selected'>
+                            <p>{selectedType}</p>
+                            <button className='button-click' id={selectedType} onClick={handleClick}>X</button>
+                        </div>
+                    ))}
+                    {errors.type && <p className="error">{errors.type}</p>}
+                </div>
+                <button type='submit' className='submit-button'>Create Pokemon</button>
             </form>
         </div>
 
