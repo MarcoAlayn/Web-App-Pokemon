@@ -1,17 +1,11 @@
 import React from 'react'
 
-const PokeCard = ({ image, name, types }) => {
+const PokeCard = ({ image, name, type }) => {
     return (
         <div>
-            <div>
-                <img src={image} width="400px" height="250px" alt='Pokemon' />
-            </div>
-            <div>
-                <h1>{name}</h1>
-            </div>
-            <div>
-                <h1>{types}</h1>
-            </div>
+            <h3 className="name">{name}</h3>
+            <h5 className="type">{type}</h5>
+            <img src={image} alt="img not found" width="200px" height="250px" />
         </div>
     )
 }

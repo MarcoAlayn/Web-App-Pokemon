@@ -41,8 +41,8 @@ export default function Formulario() {
         } else if (!RegExpression.test(personaje.name)) {
             errors.name = 'Special characters and numbers are not allowed'
         }
-        if (personaje.life === 0 || personaje.attack === 0 || personaje.defense === 0 || personaje.speed === 0 || personaje.height === 0 || personaje.weight === 0) {
-            errors.life = 'Complete all stats!'
+        if (personaje.life === 0 || personaje.attack === 0 || personaje.defense === 0 || personaje.speed === 0 || personaje.height === 0 || personaje.weight === 0 || personaje.image === 0 || personaje.type === 0) {
+            errors.type = 'Complete all stats!'
         }
         return errors
     }
@@ -61,7 +61,7 @@ export default function Formulario() {
 
     function handleOnSubmit(e) {
         e.preventDefault();
-        !personaje.image ? setPersonaje({ ...personaje.image = 'https://roastbrief.com.mx/wp-content/uploads/2021/01/BoBJLUKIMAAQgyA.png' }) : setPersonaje(personaje);
+        // !personaje.image ? setPersonaje({ ...personaje.image = 'https://roastbrief.com.mx/wp-content/uploads/2021/01/BoBJLUKIMAAQgyA.png' }) : setPersonaje(personaje);
         if (Object.keys(errors).length === 0 && personaje.name.length && personaje.type.length > 0) {
             dispatch(postPokemon(personaje));
             dispatch(getPokemonByName(personaje.name))

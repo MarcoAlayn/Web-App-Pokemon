@@ -17,7 +17,7 @@ const AllCards = () => {
             <div>
                 {todosLosPokes.length > 0 ? todosLosPokes.map(pokemon =>
                     <Link key={pokemon.id} to={`/detail/${pokemon.id}`} >
-                        <PokeCard image={pokemon.image} name={pokemon.name} type={pokemon.types} />
+                        <PokeCard image={pokemon.image} name={pokemon.name} type={pokemon.type} />
                     </Link>)
                     : <h2>No hay pokemons</h2>}
             </div>
