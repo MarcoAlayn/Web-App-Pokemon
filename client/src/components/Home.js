@@ -47,8 +47,14 @@ const Home = () => {
                     <Link key={pokemon.id} to={`/detail/${pokemon.id}`} >
                         <PokeCard image={pokemon.image} name={pokemon.name} type={pokemon.type} />
                     </Link>)
-                    : <div>Loading...</div>}
+                    : <div>Loading Pokemons...</div>}
             </div>
+            <Pagination
+                pokemonsPerPage={pokemonsPerPage}
+                allPokemons={allPokemons.length}
+                paginado={paginado}
+                currentPage={currentPage}
+            />
         </div>
     )
 }

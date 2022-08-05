@@ -25,6 +25,7 @@ function Pagination({ pokemonsPerPage, allPokemons, paginado, currentPage }) {
                 }
                 </div>
                 <div className="number-of-page">
+                    <span>Page:</span>
                     {currentPage} of {4}
                 </div>
                 <div className="next">
