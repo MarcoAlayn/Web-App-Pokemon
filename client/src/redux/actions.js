@@ -4,10 +4,10 @@ import axios from 'axios'
 export const GET_ALL_POKEMONS = "GET_ALL_POKEMONS";
 export const GET_ALL_TYPES = "GET_ALL_TYPES";
 export const CREATE_POKEMON = "CREATE_POKEMON";
+export const GET_NAMES_POKEMONS = "GET_NAMES_POKEMONS";
 
 // //FILTROS
 // export const GET_BY_CREATED = "GET_BY_CREATED";
-// export const GET_BY_NAME = "GET_BY_NAME";
 // export const GET_BY_ID = "GET_BY_ID";
 // export const GET_BY_TYPE = "GET_BY_TYPE";
 // export const ALPHABETIC_ORDER = "ALPHABETIC_ORDER"; //y descendente o descendente
@@ -47,3 +47,19 @@ export const postPokemon = (payload) => {
     }
 }
 
+
+export const getPokemonByName = (name) => {
+    return async (dispatch) => {
+        try {
+            const pokeName = await axios.get(`http://localhost:3001/pokemons?name=${name}`)
+            console.log("esto es data del dispatch get pokeName:", pokeName.data)
+            return dispatch({
+                type: GET_NAMES_POKEMONS,
+                payload: pokeName.data
+            })
+        } catch (error) {
+            alert('There is no Pokemon with that name')
+            console.log(error);
+        }
+    }
+}

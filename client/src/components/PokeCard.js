@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PokeCard = ({ image, name, type }) => {
+const PokeCard = ({ image, name, types }) => {
     return (
         <div>
             <div>
@@ -10,7 +10,7 @@ const PokeCard = ({ image, name, type }) => {
                 <h1>{name}</h1>
             </div>
             <div>
-                <h1>{type}</h1>
+                <h1>{types}</h1>
             </div>
         </div>
     )

@@ -1,10 +1,10 @@
 //reducer / erika es una funcion que recibe 2 propiedades, el estado inicial y una accion
-import { GET_ALL_POKEMONS, GET_ALL_TYPES, CREATE_POKEMON } from "./actions"
+import { GET_ALL_POKEMONS, GET_ALL_TYPES, CREATE_POKEMON, GET_NAMES_POKEMONS } from "./actions"
 
 const initialState = {
     allPokemons: [],
     allTypes: [],
-    allPokemonsCopy: []
+    pokemonsByName: [],
 
 }
 const rootReducer = (state = initialState, action) => {
@@ -22,6 +22,11 @@ const rootReducer = (state = initialState, action) => {
         case CREATE_POKEMON:
             return {
                 ...state,
+            }
+        case GET_NAMES_POKEMONS:
+            return {
+                ...state,
+                pokemonsByName: action.payload
             }
         default:
             return state;
