@@ -18,6 +18,7 @@ export default function Formulario() {
 
     const [personaje, setPersonaje] = useState({
         name: '',
+        life: 0,
         attack: 0,
         defense: 0,
         speed: 0,
@@ -40,8 +41,8 @@ export default function Formulario() {
         } else if (!RegExpression.test(personaje.name)) {
             errors.name = 'Special characters and numbers are not allowed'
         }
-        if (personaje.hp === 0 || personaje.attack === 0 || personaje.defense === 0 || personaje.speed === 0 || personaje.height === 0 || personaje.weight === 0) {
-            errors.hp = 'Complete all stats!'
+        if (personaje.life === 0 || personaje.attack === 0 || personaje.defense === 0 || personaje.speed === 0 || personaje.height === 0 || personaje.weight === 0) {
+            errors.life = 'Complete all stats!'
         }
         return errors
     }
@@ -75,7 +76,7 @@ export default function Formulario() {
     function handleSelect(e) {
         if (personaje.type.filter(type => type === e.target.value).length) {
             personaje.type.pop()
-            alert('Type removed')
+            alert('You have already chosen this type')
         }
 
         setPersonaje({
@@ -101,6 +102,12 @@ export default function Formulario() {
                     <label htmlFor="name">Name:</label>
                     <input type="text" name="name" value={personaje.name} autoComplete='off' onChange={handleOnChange} />
                     {errors.name && <p className="error">{errors.name}</p>}
+                </div>
+                <div className="form-life">
+                    <label htmlFor="life">Life:</label>
+                    <input type="range" name="life" value={personaje.life} min="1" max="120" onChange={handleOnChange} />
+                    <span>{personaje.life}</span>
+                    {errors.life && <p className="error">{errors.life}</p>}
                 </div>
                 <div className='form-attack'>
                     <label htmlFor="attack">Attack:</label>
