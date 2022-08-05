@@ -8,11 +8,11 @@ router.get('/', async (req, res) => {
         // primero los fuardamos en db desde la api
         let urlTypes = await axios("https://pokeapi.co/api/v2/type")
 
-        let mapApiTypes = urlTypes.data.results.map(type => type.name)
+        let mapApiTypes = urlTypes.data.results
 
-        await mapApiTypes.map(pokeType => {
+        mapApiTypes.map(pokeType => {
             Type.findOrCreate({
-                where: { name: pokeType }
+                where: { name: pokeType.name }
             })
         })
 

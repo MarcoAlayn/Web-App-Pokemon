@@ -61,26 +61,38 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    const { name, image, life, attack, defense, speed, height, weight } = req.body
+    const {
+        name,
+        life,
+        attack,
+        defense,
+        speed,
+        height,
+        weight,
+        types,
+        image
+    } = req.body;
+
 
     try {
-        let newPokemon = await Pokemon.create({
+        const postData = await Pokemon.create({
             name,
-            image,
             life,
             attack,
             defense,
             speed,
             height,
             weight,
-
+            image
         })
 
-        const findType = await Type.findAll({ where: { name: name } });
+        const postType = await Type.findAll({
+            where: { name: types }
+        })
 
-        await newPokemon.addType(findType);
+        await postData.addTypes(postType)
 
-        res.status(200).json(newPokemon)
+        res.status(201).json(postData)
     } catch (error) {
         res.status(500).json({ message: 'Error', error })
     }
