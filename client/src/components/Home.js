@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 import { getAllPokemons } from "../redux/actions"
 import Pagination from "./Pagination"
 import PokeCard from "./PokeCard"
-import { Link } from "react-router-dom"
+import SearchBar from "./SearchBar"
 
 const Home = () => {
     const allPokemons = useSelector(state => state.allPokemons)
@@ -34,8 +35,20 @@ const Home = () => {
 
     return (
         <div>
+
             <button onClick={handleRefresh}>Refresh Pokemon List</button>
-            <div>Home</div>
+            <SearchBar />
+            {/* <div className="filters">
+                <form className="form-inline">
+                    <select className="sort" value="default" onChange={e => handleSort(e)} >
+                        <option disabled value="default" >Sort by</option>
+                        <option value="asc">A-Z</option>
+                        <option value="desc">Z-A</option>
+                    </select>
+                    <select className="sortByAttack" value="default" onChange={e => handleSortByAttack(e)} >
+                        <option disabled value="default" >Sort by attack</option> */}
+
+
             <Pagination
                 pokemonsPerPage={pokemonsPerPage}
                 allPokemons={allPokemons.length}
@@ -55,6 +68,7 @@ const Home = () => {
                 paginado={paginado}
                 currentPage={currentPage}
             />
+
         </div>
     )
 }

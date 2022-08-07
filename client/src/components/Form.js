@@ -143,10 +143,10 @@ export default function Formulario() {
                 <div className='form-image'>
                     <label htmlFor="image">Image:</label>
                     <input type="text" name="image" value={personaje.image}
-                        pattern="https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$"
+                        // pattern="https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$"
                         placeholder=' paste url image...'
                         autoComplete='off'
-                        required='required'
+                        // required='required' 
                         onChange={handleOnChange} />
                     {errors.image && <p className="error">{errors.image}</p>}
                 </div>
