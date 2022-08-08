@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { getAllPokemons } from "../redux/actions"
+import { getAllPokemons, getPokemonByFilter, getAllTypes } from "../redux/actions"
 import Pagination from "./Pagination"
 import PokeCard from "./PokeCard"
 import SearchBar from "./SearchBar"
 
 const Home = () => {
     const allPokemons = useSelector(state => state.allPokemons)
+    const allTypes = useSelector(state => state.allTypes)
+
     const dispatch = useDispatch();
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -23,6 +25,7 @@ const Home = () => {
 
     useEffect(() => {
         dispatch(getAllPokemons())
+        dispatch(getAllTypes())
     }, [dispatch])
 
 
@@ -32,35 +35,49 @@ const Home = () => {
         dispatch(getAllPokemons())
     }
 
+    function handleFilters(e) {
+        e.preventDefault()
+        dispatch(getPokemonByFilter(e.target.value))
+    }
 
     return (
         <div>
 
             <button onClick={handleRefresh}>Refresh Pokemon List</button>
             <SearchBar />
-            {/* <div className="filters">
-                <form className="form-inline">
-                    <select className="sort" value="default" onChange={e => handleSort(e)} >
-                        <option disabled value="default" >Sort by</option>
-                        <option value="asc">A-Z</option>
-                        <option value="desc">Z-A</option>
+
+            {/* filtros */}
+            <form className="filters">
+                <div>
+                    <span>Select By Type:</span>
+                    <select onChange={e => handleFilters(e)} >
+                        <option value="all">All</option>
+                        {
+                            allTypes && allTypes.map(type => {
+                                return <option value={type.name} key={type.id} onChange={e => handleFilters(e)}>{type.name}</option>
+                            })
+                        }
                     </select>
-                    <select className="sortByAttack" value="default" onChange={e => handleSortByAttack(e)} >
-                        <option disabled value="default" >Sort by attack</option> */}
+                </div>
+            </form >
 
+            {/* ordenamientos */}
 
-            <Pagination
+            < Pagination
                 pokemonsPerPage={pokemonsPerPage}
                 allPokemons={allPokemons.length}
                 paginado={paginado}
                 currentPage={currentPage}
             />
             <div>
-                {currentPokemons.length ? currentPokemons.map(pokemon =>
-                    <Link key={pokemon.id} to={`/detail/${pokemon.id}`} >
-                        <PokeCard image={pokemon.image} name={pokemon.name} type={pokemon.type} />
-                    </Link>)
-                    : <div>Loading Pokemons...</div>}
+                {
+                    currentPokemons.length ? currentPokemons.map(pokemon =>
+                        <Link key={pokemon.id} to={`/detail/${pokemon.id}`} >
+                            <PokeCard image={pokemon.image} name={pokemon.name} type={pokemon.type} />
+                        </Link>)
+                        : <h3>There are no Pokemons...</h3>
+                }
+
             </div>
             <Pagination
                 pokemonsPerPage={pokemonsPerPage}
@@ -69,7 +86,7 @@ const Home = () => {
                 currentPage={currentPage}
             />
 
-        </div>
+        </div >
     )
 }
 

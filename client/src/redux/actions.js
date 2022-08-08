@@ -5,9 +5,9 @@ export const GET_ALL_POKEMONS = "GET_ALL_POKEMONS";
 export const GET_ALL_TYPES = "GET_ALL_TYPES";
 export const CREATE_POKEMON = "CREATE_POKEMON";
 export const GET_NAMES_POKEMONS = "GET_NAMES_POKEMONS";
+export const GET_BY_FILTER = "GET_BY_FILTER";
 
 // //FILTROS
-// export const GET_BY_CREATED = "GET_BY_CREATED";
 // export const GET_BY_ID = "GET_BY_ID";
 // export const GET_BY_TYPE = "GET_BY_TYPE";
 // export const ALPHABETIC_ORDER = "ALPHABETIC_ORDER"; //y descendente o descendente
@@ -61,5 +61,13 @@ export const getPokemonByName = (name) => {
             alert('There is no Pokemon with that name')
             console.log(error);
         }
+    }
+}
+
+export const getPokemonByFilter = (payload) => {
+    console.log('esto es el payload GET_BY_FILTER:', payload)
+    return {
+        type: GET_BY_FILTER,
+        payload
     }
 }
