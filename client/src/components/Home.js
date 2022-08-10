@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { getAllPokemons, getPokemonByFilter, getAllTypes } from "../redux/actions"
+import { getAllPokemons, getPokemonByType, getAllTypes, filterCreated } from "../redux/actions"
 import Pagination from "./Pagination"
 import PokeCard from "./PokeCard"
 import SearchBar from "./SearchBar"
@@ -35,9 +35,14 @@ const Home = () => {
         dispatch(getAllPokemons())
     }
 
-    function handleFilters(e) {
+    function handleFilterByType(e) {
         e.preventDefault()
-        dispatch(getPokemonByFilter(e.target.value))
+        dispatch(getPokemonByType(e.target.value))
+    }
+
+    function handleFilterByOrigin(e) {
+        e.preventDefault()
+        dispatch(filterCreated(e.target.value))
     }
 
     return (
@@ -49,14 +54,22 @@ const Home = () => {
             {/* filtros */}
             <form className="filters">
                 <div>
-                    <span>Select By Type:</span>
-                    <select onChange={e => handleFilters(e)} >
+                    <span>Filter By Type:</span>
+                    <select onChange={e => handleFilterByType(e)} >
                         <option value="all">All</option>
                         {
                             allTypes && allTypes.map(type => {
-                                return <option value={type.name} key={type.id} onChange={e => handleFilters(e)}>{type.name}</option>
+                                return <option value={type.name} key={type.id} onChange={e => handleFilterByType(e)}>{type.name}</option>
                             })
                         }
+                    </select>
+                </div>
+                <div>
+                    <span>Filter By Origin:</span>
+                    <select onChange={e => handleFilterByOrigin(e)}>
+                        <option value="all" >All</option>
+                        <option value="api" >Originals</option>
+                        <option value="create">Created By User</option>
                     </select>
                 </div>
             </form >

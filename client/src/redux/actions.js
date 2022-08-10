@@ -5,8 +5,8 @@ export const GET_ALL_POKEMONS = "GET_ALL_POKEMONS";
 export const GET_ALL_TYPES = "GET_ALL_TYPES";
 export const CREATE_POKEMON = "CREATE_POKEMON";
 export const GET_NAMES_POKEMONS = "GET_NAMES_POKEMONS";
-export const GET_BY_FILTER = "GET_BY_FILTER";
-
+export const GET_BY_TYPE = "GET_BY_FILTER";
+export const FILTER_CREATED = "FILTER_CREATED";
 // //FILTROS
 // export const GET_BY_ID = "GET_BY_ID";
 // export const GET_BY_TYPE = "GET_BY_TYPE";
@@ -64,10 +64,19 @@ export const getPokemonByName = (name) => {
     }
 }
 
-export const getPokemonByFilter = (payload) => {
-    console.log('esto es el payload GET_BY_FILTER:', payload)
+export const getPokemonByType = (payload) => {
+    console.log('esto es el payload GET_BY_TYPE:', payload)
     return {
-        type: GET_BY_FILTER,
+        type: GET_BY_TYPE,
+        payload
+    }
+
+}
+
+export const filterCreated = (payload) => {
+    console.log('esto es el payload filterCreated:', payload)
+    return {
+        type: FILTER_CREATED,
         payload
     }
 }

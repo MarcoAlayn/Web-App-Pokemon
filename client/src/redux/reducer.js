@@ -1,5 +1,5 @@
 //reducer / erika es una funcion que recibe 2 propiedades, el estado inicial y una accion
-import { GET_ALL_POKEMONS, GET_ALL_TYPES, CREATE_POKEMON, GET_NAMES_POKEMONS, GET_BY_FILTER } from "./actions"
+import { GET_ALL_POKEMONS, GET_ALL_TYPES, CREATE_POKEMON, GET_NAMES_POKEMONS, GET_BY_TYPE, FILTER_CREATED } from "./actions"
 
 const initialState = {
     allPokemons: [],
@@ -30,16 +30,24 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 pokemonsByName: action.payload
             }
-        case GET_BY_FILTER:
+        case GET_BY_TYPE:
             const pokemonesFiltrados = state.allPokemonsCopy
             const pokeFiltered = action.payload === "all" ?
                 pokemonesFiltrados :
                 pokemonesFiltrados.filter(el => el.type.includes(action.payload))//se trae el pokemon donde sea true que contiene el tipo que se pasa por payload
-
-            console.log('esto me trae pokeFiltered:', pokeFiltered)
+            // console.log('esto me trae pokeFiltered:', pokeFiltered)
             return {
                 ...state,
                 allPokemons: pokeFiltered
+            }
+
+        case FILTER_CREATED:
+            const allPokes = state.allPokemonsCopy
+            const pokesCreated = action.payload === "all" ?
+                allPokes : action.payload === "create" ? allPokes.filter(pokemon => pokemon.create) : allPokes.filter(pokemon => !pokemon.create)
+            return {
+                ...state,
+                allPokemons: pokesCreated
             }
         default:
             return state;
