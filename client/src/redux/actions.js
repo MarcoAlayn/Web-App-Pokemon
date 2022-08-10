@@ -1,18 +1,15 @@
 import axios from 'axios'
 
-//RUTAS BACKEND
+//export types
 export const GET_ALL_POKEMONS = "GET_ALL_POKEMONS";
 export const GET_ALL_TYPES = "GET_ALL_TYPES";
 export const CREATE_POKEMON = "CREATE_POKEMON";
 export const GET_NAMES_POKEMONS = "GET_NAMES_POKEMONS";
-export const GET_BY_TYPE = "GET_BY_FILTER";
+export const GET_BY_TYPE = "GET_BY_TYPE";
 export const FILTER_CREATED = "FILTER_CREATED";
-// //FILTROS
-// export const GET_BY_ID = "GET_BY_ID";
-// export const GET_BY_TYPE = "GET_BY_TYPE";
-// export const ALPHABETIC_ORDER = "ALPHABETIC_ORDER"; //y descendente o descendente
-// export const GET_BY_ATTACk = "GET_BY_ATTACk"; //y descendente o descendente
+export const ORDER_BY_NAME = "ORDER_BY_NAME"
 
+//action creators
 export const getAllPokemons = () => {
     return async (dispatch) => {
 
@@ -77,6 +74,14 @@ export const filterCreated = (payload) => {
     console.log('esto es el payload filterCreated:', payload)
     return {
         type: FILTER_CREATED,
+        payload
+    }
+}
+
+export const orderByName = (payload) => {
+    console.log('esto es el payload orderByName:', payload)
+    return {
+        type: ORDER_BY_NAME,
         payload
     }
 }
