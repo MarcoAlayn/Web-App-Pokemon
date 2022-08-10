@@ -80,13 +80,14 @@ const Home = () => {
                 }
 
             </div>
-            <Pagination
-                pokemonsPerPage={pokemonsPerPage}
-                allPokemons={allPokemons.length}
-                paginado={paginado}
-                currentPage={currentPage}
-            />
-
+            <div>{currentPokemons.length ?
+                < Pagination
+                    pokemonsPerPage={pokemonsPerPage}
+                    allPokemons={allPokemons.length}
+                    paginado={paginado}
+                    currentPage={currentPage}
+                /> : null}
+            </div>
         </div >
     )
 }
