@@ -44,6 +44,9 @@ const Home = () => {
     function handleFilterByType(e) {
         e.preventDefault()
         dispatch(getPokemonByType(e.target.value))
+        setOrder(`Order ${e.target.value}`)
+        setCurrentPage(1)
+        e.target.value = "default"
     }
 
     function handleFilterByOrigin(e) {
@@ -51,6 +54,7 @@ const Home = () => {
         dispatch(filterCreated(e.target.value))
         setOrder(`Order ${e.target.value}`)
         setCurrentPage(1)
+        e.target.value = "default"
     }
 
     function handleOrderByName(e) {
@@ -80,7 +84,7 @@ const Home = () => {
                 <div>
                     <span>Filter By Type:</span>
                     <select onChange={e => handleFilterByType(e)} >
-                        <option value="all">All</option>
+                        <option value="default">Select Type</option>
                         {
                             allTypes && allTypes.map(type => {
                                 return <option value={type.name} key={type.id} onChange={e => handleFilterByType(e)}>{type.name}</option>
@@ -91,7 +95,7 @@ const Home = () => {
                 <div>
                     <span>Filter By Origin:</span>
                     <select onChange={e => handleFilterByOrigin(e)}>
-                        <option value="all" >All</option>
+                        <option value="default">Select Origin</option>
                         <option value="api" >Originals</option>
                         <option value="create">Created By User</option>
                     </select>

@@ -33,9 +33,7 @@ const rootReducer = (state = initialState, action) => {
             }
         case GET_BY_TYPE:
             const pokemonesFiltrados = state.allPokemonsCopy
-            const pokeFiltered = action.payload === "all" ?
-                pokemonesFiltrados :
-                pokemonesFiltrados.filter(el => el.type.includes(action.payload))//se trae el pokemon donde sea true que contiene el tipo que se pasa por payload
+            const pokeFiltered = pokemonesFiltrados.filter(el => el.type.includes(action.payload))//se trae el pokemon donde sea true que contiene el tipo que se pasa por payload
             // console.log('esto me trae pokeFiltered:', pokeFiltered)
             return {
                 ...state,
@@ -44,8 +42,7 @@ const rootReducer = (state = initialState, action) => {
 
         case FILTER_CREATED:
             const allPokes = state.allPokemonsCopy
-            const pokesCreated = action.payload === "all" ?
-                allPokes : action.payload === "create" ? allPokes.filter(pokemon => pokemon.create) : allPokes.filter(pokemon => !pokemon.create)
+            const pokesCreated = action.payload === "create" ? allPokes.filter(pokemon => pokemon.create) : allPokes.filter(pokemon => !pokemon.create)
             return {
                 ...state,
                 allPokemons: pokesCreated
@@ -67,7 +64,7 @@ const rootReducer = (state = initialState, action) => {
                         if (nameA < nameB) return 1;
                         if (nameA > nameB) return -1;
                         return 0;
-                    }) : state.allPokemons
+                    }) : pokes
             console.log('esto me trae sortingByName:', sortingByName)
             return {
                 ...state,
