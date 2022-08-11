@@ -9,9 +9,11 @@ import SearchBar from "./SearchBar"
 const Home = () => {
     const allPokemons = useSelector(state => state.allPokemons)
     const allTypes = useSelector(state => state.allTypes)
+    // const filtrados = useSelector(state => state.filtro)
 
     const dispatch = useDispatch();
 
+    const [loaded, /*setLoaded*/] = useState(allPokemons.length ? true : false)
     const [order, setOrder] = useState('')
     const [currentPage, setCurrentPage] = useState(1);
     const [pokemonsPerPage] = useState(12);
@@ -25,9 +27,12 @@ const Home = () => {
 
 
     useEffect(() => {
-        dispatch(getAllPokemons())
-        dispatch(getAllTypes())
-    }, [dispatch])
+        if (!loaded) {
+            dispatch(getAllPokemons())
+            dispatch(getAllTypes())
+        }
+
+    }, [loaded, dispatch])
 
 
 
@@ -44,6 +49,8 @@ const Home = () => {
     function handleFilterByOrigin(e) {
         e.preventDefault()
         dispatch(filterCreated(e.target.value))
+        setOrder(`Order ${e.target.value}`)
+        setCurrentPage(1)
     }
 
     function handleOrderByName(e) {
@@ -51,7 +58,8 @@ const Home = () => {
         dispatch(orderByName(e.target.value))
         setOrder(`Order ${e.target.value}`, order)
         setCurrentPage(1)
-        e.target.value = "reset"
+        e.target.value = "default"
+
     }
     return (
         <div>
@@ -63,7 +71,7 @@ const Home = () => {
                 <div>
                     <span>Order By Name:</span>
                     <select onChange={e => handleOrderByName(e)} >
-                        <option value="reset" >Select Order</option>
+                        <option value="default">Select Order</option>
                         <option value="asc">A-Z</option>
                         <option value="desc">Z-A</option>
                     </select>

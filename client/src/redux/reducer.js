@@ -5,7 +5,8 @@ const initialState = {
     allPokemons: [],
     allTypes: [],
     pokemonsByName: [],
-    allPokemonsCopy: []
+    allPokemonsCopy: [],
+    filtro: []
 
 }
 const rootReducer = (state = initialState, action) => {
@@ -66,7 +67,8 @@ const rootReducer = (state = initialState, action) => {
                         if (nameA < nameB) return 1;
                         if (nameA > nameB) return -1;
                         return 0;
-                    }) : null
+                    }) : state.allPokemons
+            console.log('esto me trae sortingByName:', sortingByName)
             return {
                 ...state,
                 allPokemons: sortingByName
