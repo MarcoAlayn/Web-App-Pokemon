@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { getAllPokemons, getPokemonByType, getAllTypes, filterCreated, orderByName } from "../redux/actions"
+import { getAllPokemons, getPokemonByType, getAllTypes, filterCreated, orderByName, orderByAttack } from "../redux/actions"
 import Pagination from "./Pagination"
 import PokeCard from "./PokeCard"
 import SearchBar from "./SearchBar"
@@ -65,6 +65,14 @@ const Home = () => {
         e.target.value = "default"
 
     }
+
+    function handleOrderByAttack(e) {
+        e.preventDefault()
+        dispatch(orderByAttack(e.target.value))
+        setOrder(`Order ${e.target.value}`, order)
+        e.target.value = "default"
+    }
+
     return (
         <div>
 
@@ -78,6 +86,14 @@ const Home = () => {
                         <option value="default">Select Order</option>
                         <option value="asc">A-Z</option>
                         <option value="desc">Z-A</option>
+                    </select>
+                </div>
+                <div>
+                    <span>Order by Attack</span>
+                    <select onChange={e => handleOrderByAttack(e)}>
+                        <option value="default">Select Order</option>
+                        <option value="highest" >highest attack</option>
+                        <option value="least" >least attack</option>
                     </select>
                 </div>
                 {/* filtros */}

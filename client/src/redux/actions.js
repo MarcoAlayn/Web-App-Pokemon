@@ -8,6 +8,7 @@ export const GET_NAMES_POKEMONS = "GET_NAMES_POKEMONS";
 export const GET_BY_TYPE = "GET_BY_TYPE";
 export const FILTER_CREATED = "FILTER_CREATED";
 export const ORDER_BY_NAME = "ORDER_BY_NAME"
+export const ORDER_BY_ATTACK = "ORDER_BY_ATTACK"
 
 //action creators
 export const getAllPokemons = () => {
@@ -82,6 +83,14 @@ export const orderByName = (payload) => {
     console.log('esto es el payload orderByName:', payload)
     return {
         type: ORDER_BY_NAME,
+        payload
+    }
+}
+
+export const orderByAttack = (payload) => {
+    console.log('esto es el payload orderByAttack:', payload)
+    return {
+        type: ORDER_BY_ATTACK,
         payload
     }
 }
