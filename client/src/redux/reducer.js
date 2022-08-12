@@ -6,8 +6,7 @@ const initialState = {
     allTypes: [],
     pokemonsByName: [],
     allPokemonsCopy: [],
-    filtro: []
-
+    filtrados: []
 }
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -34,21 +33,41 @@ const rootReducer = (state = initialState, action) => {
         case GET_BY_TYPE:
             const pokemonesFiltrados = state.allPokemonsCopy
             const pokeFiltered = pokemonesFiltrados.filter(el => el.type.includes(action.payload))//se trae el pokemon donde sea true que contiene el tipo que se pasa por payload
-            // console.log('esto me trae pokeFiltered:', pokeFiltered)
+            console.log('esto me trae pokeFiltered:', pokeFiltered)
             return {
                 ...state,
-                allPokemons: pokeFiltered
+                filtrados: pokeFiltered.length > 0 ? pokeFiltered : ["not"]
             }
 
         case FILTER_CREATED:
             const allPokes = state.allPokemonsCopy
             const pokesCreated = action.payload === "create" ? allPokes.filter(pokemon => pokemon.create) : allPokes.filter(pokemon => !pokemon.create)
+            console.log('esto me trae pokesCreated:', pokesCreated)
             return {
                 ...state,
-                allPokemons: pokesCreated
+                filtrados: pokesCreated
             }
         case ORDER_BY_NAME:
             const pokes = state.allPokemonsCopy
+            const pokesInFilter = state.filtrados
+
+            const sortingFiltereds = action.payload === "asc" ?
+                pokesInFilter.sort((a, b) => {
+                    const nameA = a.name.toLowerCase()
+                    const nameB = b.name.toLowerCase()
+                    if (nameA < nameB) return -1;
+                    if (nameA > nameB) return 1;
+                    return 0;
+
+                }) : action.payload === "desc" ?
+                    pokesInFilter.sort((a, b) => {
+                        const nameA = a.name.toLowerCase()
+                        const nameB = b.name.toLowerCase()
+                        if (nameA < nameB) return 1;
+                        if (nameA > nameB) return -1;
+                        return 0;
+                    }) : null
+
             const sortingByName = action.payload === "asc" ?
                 pokes.sort((a, b) => {
                     const nameA = a.name.toLowerCase()
@@ -64,11 +83,11 @@ const rootReducer = (state = initialState, action) => {
                         if (nameA < nameB) return 1;
                         if (nameA > nameB) return -1;
                         return 0;
-                    }) : pokes
+                    }) : null
             console.log('esto me trae sortingByName:', sortingByName)
             return {
                 ...state,
-                allPokemons: sortingByName
+                allPokemons: sortingFiltereds.length > 0 ? sortingFiltereds : sortingByName
             }
 
         case ORDER_BY_ATTACK:
@@ -85,6 +104,7 @@ const rootReducer = (state = initialState, action) => {
                         if (a.attack > b.attack) return -1
                         return 0;
                     }) : null
+            console.log('esto me trae pokesByAttack:', pokesByAttack)
             return {
                 ...state,
                 allPokemons: pokesByAttack

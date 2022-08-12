@@ -9,17 +9,19 @@ import SearchBar from "./SearchBar"
 const Home = () => {
     const allPokemons = useSelector(state => state.allPokemons)
     const allTypes = useSelector(state => state.allTypes)
-    // const filtrados = useSelector(state => state.filtro)
+    const filtrados = useSelector(state => state.filtrados)
 
     const dispatch = useDispatch();
 
-    const [loaded, /*setLoaded*/] = useState(allPokemons.length ? true : false)
+    const [render, /*setLoaded*/] = useState(allPokemons.length ? true : false)
     const [order, setOrder] = useState('')
     const [currentPage, setCurrentPage] = useState(1);
     const [pokemonsPerPage] = useState(12);
     const indexOfLastPokemon = currentPage * pokemonsPerPage; //1 * 12 = 12
     const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage; //12 - 12 = 0
-    const currentPokemons = allPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon); //0, 12
+    const currentPokemons = filtrados.length ?
+        filtrados.includes("not") ? 0 : filtrados.slice(indexOfFirstPokemon, indexOfLastPokemon)
+        : allPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon); //0, 12
 
     const paginado = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -27,12 +29,12 @@ const Home = () => {
 
 
     useEffect(() => {
-        if (!loaded) {
+        if (!render) {
             dispatch(getAllPokemons())
             dispatch(getAllTypes())
         }
 
-    }, [loaded, dispatch])
+    }, [render, dispatch])
 
 
 
@@ -72,7 +74,7 @@ const Home = () => {
         setOrder(`Order ${e.target.value}`, order)
         e.target.value = "default"
     }
-
+    console.log('esto es filtrados', filtrados)
     return (
         <div>
 
@@ -127,11 +129,12 @@ const Home = () => {
             </div>
             <div>
                 {
-                    currentPokemons.length ? currentPokemons.map(pokemon =>
-                        <Link key={pokemon.id} to={`/detail/${pokemon.id}`} >
-                            <PokeCard image={pokemon.image} name={pokemon.name} type={pokemon.type} />
-                        </Link>)
-                        : <h3>There are no Pokemons...</h3>
+                    currentPokemons === 0 ? <h3>There are no Pokemons...</h3>
+                        : currentPokemons.length ? currentPokemons.map(pokemon =>
+                            <Link key={pokemon.id} to={`/detail/${pokemon.id}`} >
+                                <PokeCard image={pokemon.image} name={pokemon.name} type={pokemon.type} />
+                            </Link>)
+                            : <h3>Loading Pokemons...</h3>
                 }
 
             </div>
