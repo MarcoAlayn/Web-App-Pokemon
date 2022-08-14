@@ -10,6 +10,7 @@ export const GET_BY_ID = "GET_BY_ID";
 export const FILTER_CREATED = "FILTER_CREATED";
 export const ORDER_BY_NAME = "ORDER_BY_NAME"
 export const ORDER_BY_ATTACK = "ORDER_BY_ATTACK"
+export const RESET_DETAIL = "RESET_DETAIL"
 
 //action creators
 export const getAllPokemons = () => {
@@ -109,5 +110,13 @@ export const getPokemonById = (Id) => {
             alert('There is no Pokemon with that Id')
             console.log(error);
         }
+    }
+}
+
+export const resetDetail = () => {
+    console.log('esto es el payload resetDetail:', resetDetail)
+    return {
+        type: RESET_DETAIL
+
     }
 }

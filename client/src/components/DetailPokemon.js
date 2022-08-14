@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getPokemonById } from '../redux/actions'
+import { getPokemonById, resetDetail } from '../redux/actions'
 
 function DetailPokemon() {
     const navigate = useNavigate();
@@ -12,10 +12,14 @@ function DetailPokemon() {
 
     useEffect(() => {
         dispatch(getPokemonById(id))
+        // cuando se desmonta dispatcha la funcion que resetea el estado detail
+
     }, [id, dispatch])
 
 
     const onNavigateBack = () => {
+
+        dispatch(resetDetail())
         return navigate(-1)
     }
 
@@ -29,7 +33,7 @@ function DetailPokemon() {
                             <h2>Name:{myPokemon[0].name}</h2>
                             <img src={myPokemon[0].image} alt='img not found' />
                             <h4>Id:{myPokemon[0].id}</h4>
-                            <h3>Types:{myPokemon[0].types}</h3>
+                            <h3>Types:{myPokemon[0].type}</h3>
                             <div>
                                 <span>Life:{myPokemon[0].life}</span>
                                 <span>Attack:{myPokemon[0].attack}</span>

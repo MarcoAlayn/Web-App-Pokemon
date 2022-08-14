@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { getAllPokemons, getPokemonByType, getAllTypes, filterCreated, orderByName, orderByAttack } from "../redux/actions"
+import { getAllPokemons, getPokemonByType, getAllTypes, filterCreated, orderByName, orderByAttack, resetDetail } from "../redux/actions"
 import Pagination from "./Pagination"
 import PokeCard from "./PokeCard"
 import SearchBar from "./SearchBar"
@@ -25,6 +25,7 @@ const Home = () => {
     }
 
     useEffect(() => {
+        dispatch(resetDetail())
         if (!render) {
             dispatch(getAllPokemons())
             dispatch(getAllTypes())
