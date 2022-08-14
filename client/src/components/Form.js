@@ -2,8 +2,26 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getAllTypes, postPokemon, getAllPokemons, getPokemonByName } from '../redux/actions'
 import { useNavigate } from 'react-router-dom'
+import defaultImage from '../images/default.png'
 
+const validate = (personaje, pokemonNames) => {
+    let errors = [];
+    let RegExpression = /^[a-zA-Z\s]*$/;
 
+    if (!personaje.name) {
+        errors.name = 'Name is required'
+    } else if (pokemonNames.includes(personaje.name)) {
+        errors.name = 'That Pokemon name already exists'
+    } else if (personaje.name.length < 4 || personaje.name.length > 10) {
+        errors.name = 'Name must be longer than three characters... And less than 10!'
+    } else if (!RegExpression.test(personaje.name)) {
+        errors.name = 'Special characters and numbers are not allowed'
+    }
+    if (personaje.life === 0 || personaje.attack === 0 || personaje.defense === 0 || personaje.speed === 0 || personaje.height === 0 || personaje.weight === 0 || personaje.image === 0 || personaje.type === 0) {
+        errors.type = 'Complete all stats!'
+    }
+    return errors
+}
 export default function Formulario() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -24,28 +42,10 @@ export default function Formulario() {
         speed: 0,
         height: 0,
         weight: 0,
-        image: '',
+        image: defaultImage,
         type: []
     });
 
-    function validate(personaje, pokemonNames) {
-        let errors = [];
-        let RegExpression = /^[a-zA-Z\s]*$/;
-
-        if (!personaje.name) {
-            errors.name = 'Name is required'
-        } else if (pokemonNames.includes(personaje.name)) {
-            errors.name = 'That Pokemon name already exists'
-        } else if (personaje.name.length < 4 || personaje.name.length > 10) {
-            errors.name = 'Name must be longer than three characters... And less than 10!'
-        } else if (!RegExpression.test(personaje.name)) {
-            errors.name = 'Special characters and numbers are not allowed'
-        }
-        if (personaje.life === 0 || personaje.attack === 0 || personaje.defense === 0 || personaje.speed === 0 || personaje.height === 0 || personaje.weight === 0 || personaje.image === 0 || personaje.type === 0) {
-            errors.type = 'Complete all stats!'
-        }
-        return errors
-    }
 
     const [errors, setErrors] = useState({});
 
@@ -55,14 +55,14 @@ export default function Formulario() {
             ...personaje,
             [e.target.name]: e.target.value
         })
-        setErrors(validate(personaje, pokemonNames))
+        setErrors(validate({ ...personaje, [e.target.name]: e.target.value }, pokemonNames))
     }
 
 
     function handleOnSubmit(e) {
         e.preventDefault();
-        // !personaje.image ? setPersonaje({ ...personaje.image = 'https://roastbrief.com.mx/wp-content/uploads/2021/01/BoBJLUKIMAAQgyA.png' }) : setPersonaje(personaje);
         if (Object.keys(errors).length === 0 && personaje.name.length && personaje.type.length > 0) {
+            // !personaje.image ? setPersonaje({ ...personaje.image = '../../../images/default.png' }) : setPersonaje(personaje)
             dispatch(postPokemon(personaje));
             dispatch(getPokemonByName(personaje.name))
             alert('Pokemon created successfully')
@@ -101,7 +101,7 @@ export default function Formulario() {
             <form onSubmit={e => handleOnSubmit(e)}>
                 <div className="form-name">
                     <label htmlFor="name">Name:</label>
-                    <input type="text" name="name" value={personaje.name} autoComplete='off' onChange={handleOnChange} />
+                    <input type="text" name="name" value={personaje.name} autoComplete='off' onChange={e => handleOnChange(e)} />
                     {errors.name && <p className="error">{errors.name}</p>}
                 </div>
                 <div className='form-attack'>
@@ -143,12 +143,12 @@ export default function Formulario() {
                 <div className='form-image'>
                     <label htmlFor="image">Image:</label>
                     <input type="text" name="image" value={personaje.image}
-                        // pattern="https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$"
+
                         placeholder=' paste url image...'
                         autoComplete='off'
-                        // required='required' 
+
                         onChange={handleOnChange} />
-                    {errors.image && <p className="error">{errors.image}</p>}
+
                 </div>
                 <div className='form-type'>
                     <select className='values' value='default' onChange={e => handleSelect(e)}>
