@@ -28,7 +28,7 @@ export default function Formulario() {
         type: []
     });
 
-    const validate = (personaje, pokemonNames) => {
+    function validate(personaje, pokemonNames) {
         let errors = [];
         let RegExpression = /^[a-zA-Z\s]*$/;
 

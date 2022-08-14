@@ -6,6 +6,7 @@ export const GET_ALL_TYPES = "GET_ALL_TYPES";
 export const CREATE_POKEMON = "CREATE_POKEMON";
 export const GET_NAMES_POKEMONS = "GET_NAMES_POKEMONS";
 export const GET_BY_TYPE = "GET_BY_TYPE";
+export const GET_BY_ID = "GET_BY_ID";
 export const FILTER_CREATED = "FILTER_CREATED";
 export const ORDER_BY_NAME = "ORDER_BY_NAME"
 export const ORDER_BY_ATTACK = "ORDER_BY_ATTACK"
@@ -92,5 +93,21 @@ export const orderByAttack = (payload) => {
     return {
         type: ORDER_BY_ATTACK,
         payload
+    }
+}
+
+export const getPokemonById = (Id) => {
+    return async (dispatch) => {
+        try {
+            const pokeId = await axios.get(`http://localhost:3001/pokemons/${Id}`)
+            console.log("esto es data del dispatch get pokeId:", pokeId.data)
+            return dispatch({
+                type: GET_BY_ID,
+                payload: pokeId.data
+            })
+        } catch (error) {
+            alert('There is no Pokemon with that Id')
+            console.log(error);
+        }
     }
 }

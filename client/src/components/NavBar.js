@@ -1,6 +1,5 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import SearchBar from './SearchBar'
 import '../styles/NavBar.css'
 
 function NavBar() {
@@ -12,7 +11,6 @@ function NavBar() {
             <NavLink to={'/create'} >
                 Create Your Pokemon
             </NavLink>
-            <SearchBar />
             <NavLink to={'/'} >
                 Exit
             </NavLink>

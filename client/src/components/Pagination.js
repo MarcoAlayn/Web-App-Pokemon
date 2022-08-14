@@ -6,7 +6,7 @@ function Pagination({ pokemonsPerPage, allPokemons, paginado, currentPage }) {
     let totalPages = 0
 
 
-    for (let i = 1; i <= Math.ceil(allPokemons / pokemonsPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(allPokemons.length / pokemonsPerPage); i++) {
         pageNumbers.push(i);
         totalPages++
     }

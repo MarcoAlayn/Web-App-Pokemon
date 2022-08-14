@@ -9,7 +9,6 @@ import SearchBar from "./SearchBar"
 const Home = () => {
     const allPokemons = useSelector(state => state.allPokemons)
     const allTypes = useSelector(state => state.allTypes)
-    const filtrados = useSelector(state => state.filtrados)
 
     const dispatch = useDispatch();
 
@@ -19,14 +18,11 @@ const Home = () => {
     const [pokemonsPerPage] = useState(12);
     const indexOfLastPokemon = currentPage * pokemonsPerPage; //1 * 12 = 12
     const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage; //12 - 12 = 0
-    const currentPokemons = filtrados.length ?
-        filtrados.includes("not") ? 0 : filtrados.slice(indexOfFirstPokemon, indexOfLastPokemon)
-        : allPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon); //0, 12
+    const currentPokemons = allPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon); //0, 12
 
     const paginado = (pageNumber) => {
         setCurrentPage(pageNumber);
     }
-
 
     useEffect(() => {
         if (!render) {
@@ -74,12 +70,11 @@ const Home = () => {
         setOrder(`Order ${e.target.value}`, order)
         e.target.value = "default"
     }
-    console.log('esto es filtrados', filtrados)
+
     return (
         <div>
 
             <button onClick={handleRefresh}>Refresh Pokemon List</button>
-            <SearchBar />
             <form className="filters">
                 {/* ordenamientos */}
                 <div>
@@ -119,14 +114,18 @@ const Home = () => {
                     </select>
                 </div>
             </form >
-            <div>{currentPokemons.length ?
-                < Pagination
-                    pokemonsPerPage={pokemonsPerPage}
-                    allPokemons={allPokemons.length}
-                    paginado={paginado}
-                    currentPage={currentPage}
-                /> : null}
+            <div>
+                {
+                    currentPokemons.length ?
+                        < Pagination
+                            pokemonsPerPage={pokemonsPerPage}
+                            allPokemons={allPokemons}
+                            paginado={paginado}
+                            currentPage={currentPage}
+                        /> : null
+                }
             </div>
+            <SearchBar />
             <div>
                 {
                     currentPokemons === 0 ? <h3>There are no Pokemons...</h3>
@@ -138,13 +137,16 @@ const Home = () => {
                 }
 
             </div>
-            <div>{currentPokemons.length ?
-                < Pagination
-                    pokemonsPerPage={pokemonsPerPage}
-                    allPokemons={allPokemons.length}
-                    paginado={paginado}
-                    currentPage={currentPage}
-                /> : null}
+            <div>
+                {
+                    currentPokemons.length ?
+                        < Pagination
+                            pokemonsPerPage={pokemonsPerPage}
+                            allPokemons={allPokemons}
+                            paginado={paginado}
+                            currentPage={currentPage}
+                        /> : null
+                }
             </div>
         </div >
     )
