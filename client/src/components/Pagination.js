@@ -13,7 +13,7 @@ function Pagination({ pokemonsPerPage, allPokemons, paginado, currentPage }) {
 
     return (
         <nav>
-            <ul className='navbar' >
+            <ul className='button-page' >
                 {
                     pageNumbers && pageNumbers.map(number => {
                         return <li className='number' key={number} >
@@ -34,7 +34,7 @@ function Pagination({ pokemonsPerPage, allPokemons, paginado, currentPage }) {
                     {currentPage} of {totalPages}
                 </div>
                 <div className="next">
-                    {currentPage >= 4 ? null : <button onClick={() => paginado(currentPage + 1)}>Next</button>}
+                    {currentPage >= pageNumbers.length ? null : <button onClick={() => paginado(currentPage + 1)}>Next</button>}
                 </div>
             </div>
 
