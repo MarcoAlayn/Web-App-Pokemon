@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const axios = require('axios');
 const router = Router();
-const { fullData, querySearchApi, paramApiSearch, dbQuery, paramDBSearch } = require('../controllers');
+const { fullData, querySearchApi, paramApiSearch, dbQuery, paramDBSearch, paramDBSearchMapped, dbQueryMapped } = require('../controllers');
 const { Pokemon, Type } = require('../db.js');
 
 router.get('/', async (req, res) => {
@@ -13,7 +13,8 @@ router.get('/', async (req, res) => {
 
             const nameInApi = await querySearchApi(name.toLocaleLowerCase()) //correcto name in api
 
-            const nameInDb = await dbQuery(name.toLowerCase())// correcto name in db
+            // const nameInDb = await dbQuery(name.toLowerCase())// correcto name in db
+            const nameInDb = await dbQueryMapped(name.toLowerCase())// correcto name in db
 
 
             nameInApi ?
@@ -40,7 +41,8 @@ router.get('/:id', async (req, res) => {
 
         if (id) {
 
-            const idInDb = await paramDBSearch(id) //correcto id in api
+            // const idInDb = await paramDBSearch(id) //correcto id in api
+            const idInDb = await paramDBSearchMapped(id) //correcto id in api
 
             const idInApi = await paramApiSearch(id)//correcto id in api
 

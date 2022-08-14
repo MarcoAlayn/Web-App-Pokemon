@@ -145,12 +145,39 @@ const dbQuery = async (name) => {
         });
 
         console.log('esto es nameQuery:', nameQuery)
-        return nameQuery
+        return [nameQuery]
     } catch (error) {
         console.error(error)
     }
 }
+const dbQueryMapped = async (name) => {
+    try {
 
+        const dbInfoMap = await dbQuery(name);
+
+        const mapping = dbInfoMap.map(poke => {
+            return {
+                id: poke.id,
+                name: poke.name,
+                image: poke.image,
+                life: poke.life,
+                attack: poke.attack,
+                defense: poke.defense,
+                speed: poke.speed,
+                height: poke.height,
+                weight: poke.weight,
+                create: poke.create,
+                type: poke.types.map(e => e.name)
+            }
+        })
+
+        console.log('esto es mapping:', mapping)
+        return mapping;
+
+    } catch (error) {
+        console.log(error)
+    }
+};
 
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -160,7 +187,7 @@ const dbQuery = async (name) => {
 const paramApiSearch = async (id) => {
     try {
         const pokeParamApi = await axios(`https://pokeapi.co/api/v2/pokemon/${id}`)
-        const pokeParam = {
+        const pokeParam = [{
             name: pokeParamApi.data.name,
             id: pokeParamApi.data.id,
             life: pokeParamApi.data.stats.find(e => e.stat.name === 'hp').base_stat,
@@ -171,7 +198,7 @@ const paramApiSearch = async (id) => {
             weight: pokeParamApi.data.weight,
             type: pokeParamApi.data.types.map(e => e.type.name),
             image: pokeParamApi.data.sprites.other.dream_world.front_default
-        }
+        }]
         console.log('esto me trae pokeParamApi:', pokeParamApi)
         return pokeParam
     } catch (error) {
@@ -192,30 +219,43 @@ const paramDBSearch = async (id) => {
             }
         });
         console.log('esto me trae paramDBSearch:', paramDBSearch)
-        return pokeParamDb
+        return [pokeParamDb]
     } catch (error) {
         console.error(error)
     }
 }
 
-//uno mis dos solicitudes
-// const fullParamSearch = async (id) => {
-//     const guion = id.includes('-')
+const paramDBSearchMapped = async (id) => {
+    try {
 
-//     try {
-//         if (guion) {
-//             const apiParam = await paramApiSearch(id)
-//             return apiParam
-//         } else {
-//             const dbParam = await paramDBSearch(id)
-//             console.log('esto me trae dbParam:', dbParam)
-//             return dbParam
-//         }
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
+        const dbInfo = await paramDBSearch(id);
+
+        const mapeo = dbInfo.map(poke => {
+            return {
+                id: poke.id,
+                name: poke.name,
+                image: poke.image,
+                life: poke.life,
+                attack: poke.attack,
+                defense: poke.defense,
+                speed: poke.speed,
+                height: poke.height,
+                weight: poke.weight,
+                create: poke.create,
+                type: poke.types.map(e => e.name)
+            }
+        })
+
+        console.log('esto es paramDBSearchMapped:', paramDBSearchMapped)
+        return mapeo;
+
+    } catch (error) {
+        console.log(error)
+    }
+};
+
+
 
 module.exports = {
-    dataApi, dataBD, fullData, querySearchApi, dbQuery, paramApiSearch, paramDBSearch
+    dataApi, dataBD, fullData, querySearchApi, dbQuery, paramApiSearch, paramDBSearch, paramDBSearchMapped, dbQueryMapped
 }
