@@ -93,6 +93,7 @@ const rootReducer = (state = initialState, action) => {
             }
 
         case GET_BY_ID:
+            console.log('esto me trae el reducer GET_BY_ID:', GET_BY_ID)
             return {
                 ...state,
                 detail: action.payload
