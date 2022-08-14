@@ -111,7 +111,7 @@ const querySearchApi = async (name) => {
 
         const pokeQuery = await axios(`https://pokeapi.co/api/v2/pokemon/${name}`);
 
-        const pokeSearch = {
+        const pokeSearch = [{
             name: pokeQuery.data.name,
             id: pokeQuery.data.id,
             life: pokeQuery.data.stats.find(e => e.stat.name === 'hp').base_stat,
@@ -123,7 +123,7 @@ const querySearchApi = async (name) => {
             type: pokeQuery.data.types.map(e => e.type.name),
             image: pokeQuery.data.sprites.other.dream_world.front_default
 
-        }
+        }]
         console.log('esto es pokeSearch:', pokeSearch)
         return pokeSearch
     } catch (error) {
