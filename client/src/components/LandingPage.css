@@ -1,6 +1,5 @@
 body {
-    background-color: aqua;
-
+    background-color: #fff769;
 }
 
 
@@ -8,22 +7,58 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 40vh;
     animation: bg 1s infinite linear;
 }
 
-.titulo {
-    color: white;
-}
 
 .content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid black;
+    border-radius: 30px;
+    width: 300px;
+    height: 120px;
+
 }
 
 .button {
     border-radius: 30px;
+    background: #0844c0;
+    color: #ffca62;
+}
 
+.button:hover {
+    background: #ffca62;
+    color: #0844c0;
+}
+
+.image {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+
+}
+
+.logo {
+    width: 200px;
+    margin: 0;
+}
+
+.amigos {
+    width: 320px;
+
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 30px;
+    background: rgb(19, 19, 19);
+    width: 230px;
+    min-height: 110px;
 }
