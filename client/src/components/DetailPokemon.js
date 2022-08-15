@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPokemonById, resetDetail } from '../redux/actions'
+import NavBar from './NavBar'
 
 function DetailPokemon() {
     const navigate = useNavigate();
@@ -25,6 +26,7 @@ function DetailPokemon() {
 
     return (
         <div>
+            <NavBar />
             <div>
 
                 {

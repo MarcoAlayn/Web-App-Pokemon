@@ -5,6 +5,7 @@ import { getAllPokemons, getPokemonByType, getAllTypes, filterCreated, orderByNa
 import Pagination from "./Pagination"
 import PokeCard from "./PokeCard"
 import SearchBar from "./SearchBar"
+import NavBar from './NavBar'
 
 const Home = () => {
     const allPokemons = useSelector(state => state.allPokemons)
@@ -74,7 +75,7 @@ const Home = () => {
 
     return (
         <div>
-
+            <NavBar />
             <button onClick={handleRefresh}>Refresh Pokemon List</button>
             <form className="filters">
                 {/* ordenamientos */}

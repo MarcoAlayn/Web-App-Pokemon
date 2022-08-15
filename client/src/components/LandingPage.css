@@ -1,0 +1,29 @@
+body {
+    background-color: aqua;
+
+}
+
+
+.conta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    animation: bg 1s infinite linear;
+}
+
+.titulo {
+    color: white;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid black;
+}
+
+.button {
+    border-radius: 30px;
+
+}

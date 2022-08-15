@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import Form from './Form';
+import NavBar from './NavBar'
 
 function CreatePokemon() {
 
@@ -11,6 +12,7 @@ function CreatePokemon() {
     }
     return (
         <div>
+            <NavBar />
             <div>Create Your Pokemon</div>
             <Form />
             <button onClick={onNavigateBack}>
