@@ -1,4 +1,5 @@
 import React from 'react'
+import './Pagination.css'
 
 function Pagination({ pokemonsPerPage, allPokemons, paginado, currentPage }) {
 
@@ -12,19 +13,19 @@ function Pagination({ pokemonsPerPage, allPokemons, paginado, currentPage }) {
     }
 
     return (
-        <nav>
-            <ul className='button-page' >
+        <nav className='pagination'>
+            <div className='button-page' >
                 {
                     pageNumbers && pageNumbers.map(number => {
-                        return <li className='number' key={number} >
-                            <button onClick={() => { paginado(number) }} >{number}</button>
-                        </li>
+                        return <div className='number' key={number} >
+                            <button className='numberButton' onClick={() => { paginado(number) }} >{number}</button>
+                        </div>
                     })
                 }
-            </ul>
+            </div>
 
 
-            <div>
+            <div className='info'>
                 <div className="previous">{
                     currentPage <= 1 ? null : <button onClick={() => paginado(currentPage - 1)}>Previous</button>
                 }

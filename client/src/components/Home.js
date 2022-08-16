@@ -79,42 +79,44 @@ const Home = () => {
             <NavBar />
             <form className="mods">
                 <button className="buttons" onClick={handleRefresh}>Refresh Pokemon List</button>
-                {/* ordenamientos */}
-                <div className="filtro">
-                    <span>Order By Name:</span>
-                    <select onChange={e => handleOrderByName(e)} >
-                        <option value="default">Select Order</option>
-                        <option value="asc">A-Z</option>
-                        <option value="desc">Z-A</option>
-                    </select>
-                </div>
-                <div className="filtro">
-                    <span>Order by Attack</span>
-                    <select onChange={e => handleOrderByAttack(e)}>
-                        <option value="default">Select Order</option>
-                        <option value="highest" >highest attack</option>
-                        <option value="least" >least attack</option>
-                    </select>
-                </div>
-                {/* filtros */}
-                <div className="filtro">
-                    <span>Filter By Type:</span>
-                    <select onChange={e => handleFilterByType(e)} >
-                        <option value="default">Select Type</option>
-                        {
-                            allTypes && allTypes.map(type => {
-                                return <option value={type.name} key={type.id} onChange={e => handleFilterByType(e)}>{type.name}</option>
-                            })
-                        }
-                    </select>
-                </div>
-                <div className="filtro">
-                    <span>Filter By Origin:</span>
-                    <select onChange={e => handleFilterByOrigin(e)}>
-                        <option value="default">Select Origin</option>
-                        <option value="api" >Originals</option>
-                        <option value="create">Created By User</option>
-                    </select>
+                <div className="allFilters">
+                    {/* ordenamientos */}
+                    <div className="filtro">
+                        <span>Order By Name:</span>
+                        <select onChange={e => handleOrderByName(e)} >
+                            <option value="default">Select Order</option>
+                            <option value="asc">A-Z</option>
+                            <option value="desc">Z-A</option>
+                        </select>
+                    </div>
+                    <div className="filtro">
+                        <span>Order by Attack</span>
+                        <select onChange={e => handleOrderByAttack(e)}>
+                            <option value="default">Select Order</option>
+                            <option value="highest" >highest attack</option>
+                            <option value="least" >least attack</option>
+                        </select>
+                    </div>
+                    {/* filtros */}
+                    <div className="filtro">
+                        <span>Filter By Type:</span>
+                        <select onChange={e => handleFilterByType(e)} >
+                            <option value="default">Select Type</option>
+                            {
+                                allTypes && allTypes.map(type => {
+                                    return <option value={type.name} key={type.id} onChange={e => handleFilterByType(e)}>{type.name}</option>
+                                })
+                            }
+                        </select>
+                    </div>
+                    <div className="filtro">
+                        <span>Filter By Origin:</span>
+                        <select onChange={e => handleFilterByOrigin(e)}>
+                            <option value="default">Select Origin</option>
+                            <option value="api" >Originals</option>
+                            <option value="create">Created By User</option>
+                        </select>
+                    </div>
                 </div>
             </form >
             <div className="paginacion">
