@@ -1,0 +1,44 @@
+.container {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.mods {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+
+
+}
+
+.buttons {
+    border-radius: 30px;
+    background: #0844c0;
+    color: #ffca62;
+    width: 200px;
+    height: 30px;
+}
+
+.buttons:hover {
+    background: white;
+    color: #0844c0;
+}
+
+.buttons:active {
+    background: red;
+}
+
+.filtro {
+    padding: 7px;
+    color: #0844c0;
+    border-radius: 10px;
+}
+
+.paginacion {}
+
+.cards {}

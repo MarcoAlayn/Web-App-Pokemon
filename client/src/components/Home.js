@@ -6,6 +6,7 @@ import Pagination from "./Pagination"
 import PokeCard from "./PokeCard"
 import SearchBar from "./SearchBar"
 import NavBar from './NavBar'
+import './Home.css'
 
 const Home = () => {
     const allPokemons = useSelector(state => state.allPokemons)
@@ -74,12 +75,12 @@ const Home = () => {
     }
 
     return (
-        <div>
+        <div className="container" >
             <NavBar />
-            <button onClick={handleRefresh}>Refresh Pokemon List</button>
-            <form className="filters">
+            <form className="mods">
+                <button className="buttons" onClick={handleRefresh}>Refresh Pokemon List</button>
                 {/* ordenamientos */}
-                <div>
+                <div className="filtro">
                     <span>Order By Name:</span>
                     <select onChange={e => handleOrderByName(e)} >
                         <option value="default">Select Order</option>
@@ -87,7 +88,7 @@ const Home = () => {
                         <option value="desc">Z-A</option>
                     </select>
                 </div>
-                <div>
+                <div className="filtro">
                     <span>Order by Attack</span>
                     <select onChange={e => handleOrderByAttack(e)}>
                         <option value="default">Select Order</option>
@@ -96,7 +97,7 @@ const Home = () => {
                     </select>
                 </div>
                 {/* filtros */}
-                <div>
+                <div className="filtro">
                     <span>Filter By Type:</span>
                     <select onChange={e => handleFilterByType(e)} >
                         <option value="default">Select Type</option>
@@ -107,7 +108,7 @@ const Home = () => {
                         }
                     </select>
                 </div>
-                <div>
+                <div className="filtro">
                     <span>Filter By Origin:</span>
                     <select onChange={e => handleFilterByOrigin(e)}>
                         <option value="default">Select Origin</option>
@@ -116,7 +117,7 @@ const Home = () => {
                     </select>
                 </div>
             </form >
-            <div>
+            <div className="paginacion">
                 {
                     currentPokemons.length ?
                         < Pagination
@@ -128,7 +129,7 @@ const Home = () => {
                 }
             </div>
             <SearchBar />
-            <div>
+            <div className="cards">
                 {
                     currentPokemons === 0 ? <h3>There are no Pokemons...</h3>
                         : currentPokemons.length ? currentPokemons.map(pokemon =>
@@ -139,7 +140,7 @@ const Home = () => {
                 }
 
             </div>
-            <div>
+            <div className="paginacion">
                 {
                     currentPokemons.length ?
                         < Pagination
