@@ -1,24 +1,27 @@
 body {
     background-color: #fff769;
+
 }
 
 
 .conta {
     display: flex;
     justify-content: center;
+    align-content: center;
     align-items: center;
-    height: 40vh;
-    animation: bg 1s infinite linear;
+    height: 650px;
+
+    background-image: url('../images/confeti.gif');
+
+
 }
 
 
 .content {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
-    border-radius: 30px;
-    width: 300px;
-    height: 120px;
+    justify-content: center;
 
 }
 
@@ -38,9 +41,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-
-
-
 }
 
 .logo {
@@ -50,7 +50,6 @@ body {
 
 .amigos {
     width: 320px;
-
 }
 
 .center {
@@ -59,6 +58,7 @@ body {
     align-items: center;
     border-radius: 30px;
     background: rgb(19, 19, 19);
+
     width: 230px;
     min-height: 110px;
 }
