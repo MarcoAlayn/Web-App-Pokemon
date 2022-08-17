@@ -1,12 +1,16 @@
 import React from 'react'
 import defaultImage from '../images/default.png'
+import './PokeCard.css'
 
-const PokeCard = ({ image, name, type }) => {
+const PokeCard = ({ image, name, typeOne, }) => {
     return (
-        <div>
-            <img src={image} alt={defaultImage} width="200px" height="250px" />
-            <h3 className="name">{name}</h3>
-            <h5 className="type">{type}</h5>
+        <div className='theCardContainer' >
+            <img className='imgCard' src={image} alt={defaultImage} />
+            <span className="nameCard">{name}</span>
+            <div className='TheTypes' >
+                <span className="typeCard">{typeOne[0]}</span>
+                <span className="typeCard">{typeOne[1]}</span>
+            </div>
 
         </div>
     )

@@ -1,0 +1,45 @@
+.theCardContainer {
+    border: 1px solid #ff0000;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+}
+
+.TheTypes {
+    border: 1px solid #000000;
+    display: flex;
+
+}
+
+.imgCard {
+    width: 200px;
+    height: 200px;
+    padding: 10px;
+    border-radius: 50px;
+
+}
+
+.imgCard:hover {
+    /* background: #ffffff3f; */
+    background-image: url('../images/backgroundCardTwo.gif');
+    opacity: 0.8;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.nameCard {
+    border: 1px solid #88ff00;
+    text-transform: uppercase;
+    font-size: 20px;
+}
+
+.typeCard {
+    border: 1px solid #ff00b3;
+    padding: 3px;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 500;
+}

@@ -136,7 +136,7 @@ const Home = () => {
                     currentPokemons === 0 ? <h3>There are no Pokemons...</h3>
                         : currentPokemons.length ? currentPokemons.map(pokemon =>
                             <Link key={pokemon.id} to={`/detail/${pokemon.id}`} >
-                                <PokeCard image={pokemon.image} name={pokemon.name} type={pokemon.type} />
+                                <PokeCard image={pokemon.image} name={pokemon.name} typeOne={pokemon.type} />
                             </Link>)
                             : <h3>Loading Pokemons...</h3>
                 }
