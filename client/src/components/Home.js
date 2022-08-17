@@ -84,8 +84,8 @@ const Home = () => {
                     <div className="filtro">
                         <span className="nameOption" >Order By Name</span>
                         <select className="select" onChange={e => handleOrderByName(e)} >
-                            <option className="options" value="default">Select Order</option>
-                            <option className="options" value="asc">A-Z</option>
+                            <option value="default">Select Order</option>
+                            <option value="asc">A-Z</option>
                             <option value="desc">Z-A</option>
                         </select>
                     </div>

@@ -22,7 +22,6 @@
     display: flex;
     align-content: center;
     background: #002e74;
-    border-radius: 50px;
     padding: 3px 5px;
 
 }
@@ -30,7 +29,7 @@
 .number {
     display: flex;
     padding: 5px;
-    border-radius: 50px;
+
 
 
 }
@@ -64,15 +63,16 @@
 .number-of-page {
     display: flex;
     flex-direction: row;
-    color: #b3110f;
+    color: #002e74;
     font-weight: 900;
+    font-size: large;
 }
 
 
 
 .direction {
     width: 100px;
-    border-radius: 30px;
+
     padding: 10px;
     background: #b3110f;
     color: #ffffff;
@@ -88,4 +88,14 @@
 .direction:active {
     background: #002e74;
     color: #f2f45f;
+}
+
+.prev {
+    -webkit-border-radius: 30px 0 0 30px;
+    border-radius: 30px 0 0 30px;
+}
+
+.next {
+    -webkit-border-radius: 0 30px 30px 0;
+    border-radius: 0 30px 30px 0;
 }

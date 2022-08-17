@@ -22,7 +22,7 @@ function Pagination({ pokemonsPerPage, allPokemons, paginado, currentPage }) {
 
             <div className='info'>
                 <div >{
-                    currentPage <= 1 ? null : <button className="direction" onClick={() => paginado(currentPage - 1)}>Previous</button>
+                    currentPage <= 1 ? null : <button className={"direction prev"} onClick={() => paginado(currentPage - 1)}>Previous</button>
                 }
                 </div>
                 <div className='button-page' >
@@ -35,7 +35,7 @@ function Pagination({ pokemonsPerPage, allPokemons, paginado, currentPage }) {
                     }
                 </div>
                 <div >
-                    {currentPage >= pageNumbers.length ? null : <button className="direction" onClick={() => paginado(currentPage + 1)}>Next</button>}
+                    {currentPage >= pageNumbers.length ? null : <button className={"direction next"} onClick={() => paginado(currentPage + 1)}>Next</button>}
                 </div>
             </div>
 

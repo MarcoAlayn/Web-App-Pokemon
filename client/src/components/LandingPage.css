@@ -28,19 +28,19 @@ body {
 .button {
     border-radius: 30px;
     background: #b3110f;
-    color: #57d3f7;
+    color: #ffffff;
     width: 200px;
     height: 30px;
 }
 
 .button:hover {
-    background: #92f45f;
-    color: #154ced;
+    background: #f2f45f;
+    color: #002e74;
 }
 
 .button:active {
-    background: #154ced;
-    color: #92f45f;
+    background: #002e74;
+    color: #f2f45f;
 }
 
 .image {
@@ -64,7 +64,7 @@ body {
     flex-direction: column;
     align-items: center;
     border-radius: 30px;
-    background: #007467;
+    background: #002e74;
 
     width: 230px;
     min-height: 110px;
