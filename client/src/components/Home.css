@@ -2,8 +2,8 @@
 /*
  #ffffff blanco
 #b3110f rojo
-#92f45f verde
-#154ced azul
+#f2f45f verde
+#002e74 azul
 #151412 negro
 #007467 verde fuerte
 #57d3f7 turquesa claro
@@ -23,7 +23,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    padding: 5px;
 
 
 
@@ -37,23 +37,31 @@
     height: 30px;
     font-size: medium;
     font-weight: 700;
-    box-shadow: inset 0px 1px 0px #ffffff, 0px 6px 0px #151412;
+    /* box-shadow: inset 0px 1px 0px #ffffff, 0px 6px 0px #151412; */
 }
 
 .buttons:hover {
-    background: #92f45f;
-    color: #154ced;
+    background: #f2f45f;
+    color: #002e74;
 }
 
 .buttons:active {
-    background: #154ced;
-    color: #92f45f;
+    background: #002e74;
+    color: #f2f45f;
 }
 
 .filtro {
     padding: 7px;
-    color: #0844c0;
-    border-radius: 10px;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.nameOption {
+    margin: 5px;
+    border-radius: 30px;
+    background: #002e74;
+    padding: 3px;
 }
 
 .allFilters {
@@ -61,7 +69,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    padding: 15px;
+    padding: 10px;
 }
 
 .cards {
@@ -72,4 +80,32 @@
     align-content: space-between;
     border: 1px solid black;
 
+}
+
+.select {
+    background-color: #b3110f;
+    color: #ffffff;
+    font-size: 17px;
+    border-radius: 30px;
+    cursor: pointer;
+    padding: 3px;
+    border-width: 3px;
+    border-style: double;
+
+
+    text-align: center;
+}
+
+option {
+    background-color: #b3110f;
+}
+
+.select:hover {
+    background-color: #f2f45f;
+    color: #002e74;
+}
+
+.options {
+    color: #b3110f;
+    background-color: #002e74;
 }

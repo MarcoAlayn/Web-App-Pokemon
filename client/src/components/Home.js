@@ -82,16 +82,16 @@ const Home = () => {
                 <div className="allFilters">
                     {/* ordenamientos */}
                     <div className="filtro">
-                        <span>Order By Name:</span>
-                        <select onChange={e => handleOrderByName(e)} >
-                            <option value="default">Select Order</option>
-                            <option value="asc">A-Z</option>
+                        <span className="nameOption" >Order By Name</span>
+                        <select className="select" onChange={e => handleOrderByName(e)} >
+                            <option className="options" value="default">Select Order</option>
+                            <option className="options" value="asc">A-Z</option>
                             <option value="desc">Z-A</option>
                         </select>
                     </div>
                     <div className="filtro">
-                        <span>Order by Attack</span>
-                        <select onChange={e => handleOrderByAttack(e)}>
+                        <span className="nameOption" >Order by Attack</span>
+                        <select className="select" onChange={e => handleOrderByAttack(e)}>
                             <option value="default">Select Order</option>
                             <option value="highest" >highest attack</option>
                             <option value="least" >least attack</option>
@@ -99,8 +99,8 @@ const Home = () => {
                     </div>
                     {/* filtros */}
                     <div className="filtro">
-                        <span>Filter By Type:</span>
-                        <select onChange={e => handleFilterByType(e)} >
+                        <span className="nameOption" >Filter By Type</span>
+                        <select className="select" onChange={e => handleFilterByType(e)} >
                             <option value="default">Select Type</option>
                             {
                                 allTypes && allTypes.map(type => {
@@ -110,8 +110,8 @@ const Home = () => {
                         </select>
                     </div>
                     <div className="filtro">
-                        <span>Filter By Origin:</span>
-                        <select onChange={e => handleFilterByOrigin(e)}>
+                        <span className="nameOption" >Filter By Origin</span>
+                        <select className="select" onChange={e => handleFilterByOrigin(e)}>
                             <option value="default">Select Origin</option>
                             <option value="api" >Originals</option>
                             <option value="create">Created By User</option>

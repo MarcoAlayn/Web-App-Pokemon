@@ -14,28 +14,28 @@ function Pagination({ pokemonsPerPage, allPokemons, paginado, currentPage }) {
 
     return (
         <nav className='pagination'>
-            <div className='button-page' >
-                {
-                    pageNumbers && pageNumbers.map(number => {
-                        return <div className='number' key={number} >
-                            <button className='numberButton' onClick={() => { paginado(number) }} >{number}</button>
-                        </div>
-                    })
-                }
+
+            <div className="number-of-page">
+                <span>Page: </span>
+                {currentPage} of {totalPages}
             </div>
 
-
             <div className='info'>
-                <div className="previous">{
-                    currentPage <= 1 ? null : <button onClick={() => paginado(currentPage - 1)}>Previous</button>
+                <div >{
+                    currentPage <= 1 ? null : <button className="direction" onClick={() => paginado(currentPage - 1)}>Previous</button>
                 }
                 </div>
-                <div className="number-of-page">
-                    <span>Page:</span>
-                    {currentPage} of {totalPages}
+                <div className='button-page' >
+                    {
+                        pageNumbers && pageNumbers.map(number => {
+                            return <div className='number' key={number} >
+                                <button className='numberButton' onClick={() => { paginado(number) }} >{number}</button>
+                            </div>
+                        })
+                    }
                 </div>
-                <div className="next">
-                    {currentPage >= pageNumbers.length ? null : <button onClick={() => paginado(currentPage + 1)}>Next</button>}
+                <div >
+                    {currentPage >= pageNumbers.length ? null : <button className="direction" onClick={() => paginado(currentPage + 1)}>Next</button>}
                 </div>
             </div>
 
