@@ -1,5 +1,5 @@
 .detail-container {
-    border: 1px solid #b3110f;
+
     display: flex;
     flex-flow: row;
     flex-wrap: wrap;
@@ -11,7 +11,7 @@
 }
 
 .card {
-    border: 1px solid #3db30f;
+
     display: flex;
     flex-flow: row;
     flex-wrap: wrap;
@@ -22,28 +22,37 @@
 }
 
 .cardImage {
-    border: 1px solid #ffffff;
+
     width: 300px;
     height: 300px;
     background-image: url('../images/Card.gif');
-    border-radius: 100px;
-    padding: 50px;
+    padding: 30px;
+    -webkit-border-radius: 30px 0 0 30px;
+    border-radius: 30px 0 0 30px;
 }
 
 .Pokevalues {
-    border: 1px solid #b30fa5;
+    color: #ffffff;
     display: flex;
     flex-flow: column;
+    background: #002e74;
+    padding: 30px;
+    -webkit-border-radius: 0 30px 30px 0;
+    border-radius: 0 30px 30px 0;
+    min-height: 300px;
 }
 
 .nameImg {
-    border: 1px solid #000000;
+    /* border: 1px solid #000000; */
 }
 
 .pokeName {
-    color: blue;
+    color: #f2f45f;
     text-transform: uppercase;
     margin-left: 5px;
+    font-size: 25px;
+    text-shadow: #ffffff 0px 0px 2px;
+    font-weight: 500;
 
 }
 
@@ -51,4 +60,6 @@
     width: 100%;
     text-align: center;
     text-transform: capitalize;
+    font-size: 25px;
+
 }

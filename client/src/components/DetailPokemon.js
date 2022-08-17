@@ -34,18 +34,19 @@ function DetailPokemon() {
                     myPokemon.length > 0 ?
                         <div className='card' >
 
-                            <h2 className='pokeTag' >Name:<span className='pokeName' >{myPokemon[0].name}</span></h2>
+                            <h2 className='pokeTag' style={{ color: '#002e74' }} >Name:<span style={{ color: '#b3110f' }} className='pokeName' >{myPokemon[0].name}</span></h2>
                             <img className='cardImage' src={myPokemon[0].image} alt='img not found' />
 
                             <div className='Pokevalues'>
-                                <h4>Id:{myPokemon[0].id}</h4>
-                                <h3>Types:{myPokemon[0].type}</h3>
-                                <span>Life:{myPokemon[0].life}</span>
-                                <span>Attack:{myPokemon[0].attack}</span>
-                                <span>Defense:{myPokemon[0].defense}</span>
-                                <span>Speed:{myPokemon[0].speed}</span>
-                                <span>Height:{myPokemon[0].height}</span>
-                                <span>Weight:{myPokemon[0].weight}</span>
+                                <span className='pokeTag'>Id:<span className='pokeName' >{myPokemon[0].id}</span></span>
+                                <span className='pokeTag'>Type:<span className='pokeName' >{myPokemon[0].type[0]}</span></span>
+                                {myPokemon[0].type[1] && <span className='pokeTag'>2ndType:<span className='pokeName' >{myPokemon[0].type[1]}</span></span>}
+                                <span className='pokeTag'>Life:<span className='pokeName' >{myPokemon[0].life}</span></span>
+                                <span className='pokeTag'>Attack:<span className='pokeName' >{myPokemon[0].attack}</span></span>
+                                <span className='pokeTag'>Defense:<span className='pokeName' >{myPokemon[0].defense}</span></span>
+                                <span className='pokeTag'>Speed:<span className='pokeName' >{myPokemon[0].speed}</span></span>
+                                <span className='pokeTag'>Height:<span className='pokeName' >{myPokemon[0].height}</span></span>
+                                <span className='pokeTag'>Weight:<span className='pokeName' >{myPokemon[0].weight}</span></span>
                             </div>
 
                         </div>
