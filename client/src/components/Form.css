@@ -1,0 +1,126 @@
+.formContainer {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    border: 1px solid black;
+}
+
+.titleForm {
+    display: flex;
+    flex-flow: row;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #002e74;
+    text-shadow: #ffe600 2px 2px 2px;
+
+    background-image: url("../images/confeti.gif");
+}
+
+.formulario {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    width: 100%;
+}
+
+.form-bar {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+
+    border-radius: 30px;
+    padding: 5px;
+    margin: 10px;
+    background: #002e74;
+    color: #ffffff;
+    font-size: 20px;
+
+}
+
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 30px;
+
+}
+
+.labelInputContainer {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.label-text {
+    background: #002e74;
+    color: #ffffff;
+    padding: 5px;
+    font-size: 20px;
+    justify-content: center;
+    -webkit-border-radius: 30px 0 0 30px;
+    border-radius: 30px 0 0 30px;
+}
+
+.form-name-input {
+    background-color: rgb(255, 255, 255);
+    height: 25px;
+    -webkit-border-radius: 0 30px 30px 0;
+    border-radius: 0 30px 30px 0;
+    width: 230px;
+}
+
+
+.form-types {
+    /* border: 1px solid rgb(255, 230, 0); */
+
+
+}
+
+.remove-types {
+
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    background: #002e74;
+    color: #ffffff;
+    width: 200px;
+    border-radius: 30px;
+}
+
+.create-button {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    background: #b3110f;
+    color: #ffffff;
+    font-size: large;
+    font-weight: 700;
+    margin: 12px;
+    height: 40px;
+
+}
+
+.create-button:hover {
+    background: #f2f45f;
+    color: #002e74;
+}
+
+.create-button:active {
+    background: #002e74;
+    color: #f2f45f;
+}

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getAllTypes, postPokemon, getAllPokemons, getPokemonByName } from '../redux/actions'
 import { useNavigate } from 'react-router-dom'
 import defaultImage from '../images/default.png'
+import './Form.css'
 
 const validate = (personaje, pokemonNames) => {
     let errors = [];
@@ -96,80 +97,85 @@ export default function Formulario() {
     }
 
     return (
-        <div className="formulario" >
-            <h1>Create Your Pokemon </h1>
-            <form onSubmit={e => handleOnSubmit(e)}>
-                <div className="form-name">
-                    <label htmlFor="name">Name:</label>
-                    <input type="text" name="name" value={personaje.name} autoComplete='off' onChange={e => handleOnChange(e)} />
+        <div className="formContainer" >
+            <h1 className='titleForm'>Enter the values ​​and create your pokemon</h1>
+            <form className="formulario" onSubmit={e => handleOnSubmit(e)}>
+                <div className="form-container">
+                    <div className='labelInputContainer' >
+                        <label className='label-text' htmlFor="name">Name:</label>
+                        <input placeholder=' Introduce the name...' className='form-name-input' type="text" name="name" value={personaje.name} autoComplete='off' onChange={e => handleOnChange(e)} />
+                    </div>
                     {errors.name && <p className="error">{errors.name}</p>}
                 </div>
-                <div className='form-attack'>
+                <div className='form-bar'>
                     <label htmlFor="attack">Attack:</label>
                     <input type="range" min="1" max="120" name="attack" value={personaje.attack} onChange={handleOnChange} />
                     <span className='attack-value'>{personaje.attack}</span>
                     {errors.attack && <p className="error">{errors.attack}</p>}
                 </div>
-                <div className='form-defense'>
+                <div className='form-bar'>
                     <label htmlFor="defense">Defense:</label>
                     <input type="range" min="1" max="120" name="defense" value={personaje.defense} onChange={handleOnChange} />
                     <span className='defense-value'>{personaje.defense}</span>
                     {errors.defense && <p className="error">{errors.defense}</p>}
                 </div>
-                <div className='form-speed'>
+                <div className='form-bar'>
                     <label htmlFor="speed">Speed:</label>
                     <input type="range" min="1" max="120" name="speed" value={personaje.speed} onChange={handleOnChange} />
                     <span className='speed-value'>{personaje.speed}</span>
                     {errors.speed && <p className="error">{errors.speed}</p>}
                 </div>
-                <div className='form-height'>
+                <div className='form-bar'>
                     <label htmlFor="height">Height:</label>
                     <input type="range" min="1" max="120" name="height" value={personaje.height} onChange={handleOnChange} />
                     <span className='height-value'>{personaje.height}</span>
                     {errors.height && <p className="error">{errors.height}</p>}
                 </div>
-                <div className='form-weight'>
+                <div className='form-bar'>
                     <label htmlFor="weight">Weight:</label>
                     <input type="range" min="1" max="120" name="weight" value={personaje.weight} onChange={handleOnChange} />
                     <span className='weight-value'>{personaje.weight}</span>
                     {errors.weight && <p className="error">{errors.weight}</p>}
                 </div>
-                <div className="form-life">
+                <div className="form-bar">
                     <label htmlFor="life">Life:</label>
-                    <input type="range" name="life" value={personaje.life} min="1" max="120" onChange={handleOnChange} />
+                    <input className='demo' type="range" name="life" value={personaje.life} min="1" max="120" onChange={handleOnChange} />
                     <span>{personaje.life}</span>
                     {errors.life && <p className="error">{errors.life}</p>}
                 </div>
-                <div className='form-image'>
-                    <label htmlFor="image">Image:</label>
-                    <input type="text" name="image" value={personaje.image}
+                <div className='form-container'>
+                    <div className='labelInputContainer' >
 
-                        placeholder=' paste url image...'
-                        autoComplete='off'
+                        <label className='label-text' htmlFor="image">Image:</label>
+                        <input className='form-name-input' type="text" name="image" value={personaje.image}
 
-                        onChange={handleOnChange} />
+                            placeholder=' paste url image...'
+                            autoComplete='off'
+
+                            onChange={handleOnChange} />
+                    </div>
 
                 </div>
-                <div className='form-type'>
-                    <select className='values' value='default' onChange={e => handleSelect(e)}>
+                <div className='form-types'>
+                    <select className='create-button' value='default' onChange={e => handleSelect(e)}>
                         <option value='default' disabled>Select up to Two Types</option>
                         {
                             personaje.type.length < 2 ? allTypes.map(type => (
-                                <option key={type.id} value={type.name}>{type.name}</option>
+                                <option key={type.id} value={type.name}>{type.name.toUpperCase()}</option>
                             )) : <option value='full' disabled>You have already selected two types</option>
                         }
                     </select>
                 </div>
-                <div className='create-type'>
+                <div className='remove-types'>
                     {personaje.type.map(selectedType => (
                         <div key={selectedType} className='type-selected'>
-                            <p>{selectedType}</p>
-                            <button className='button-click' id={selectedType} onClick={handleClick}>X</button>
+                            <button className='create-button' id={selectedType} onClick={handleClick}>X</button>
+                            <p>{selectedType.toUpperCase()}</p>
                         </div>
                     ))}
                     {errors.type && <p className="error">{errors.type}</p>}
                 </div>
-                <button type='submit' className='submit-button'>Create Pokemon</button>
+                <button className='create-button' type='submit' >CREATE YOUR POKEMON</button>
             </form>
         </div>
 
