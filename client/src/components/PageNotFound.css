@@ -1,0 +1,31 @@
+.notFoundContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url('../images/pageNotFound.jpg');
+    background-size: auto;
+
+
+}
+
+.codeHttp {
+
+    background: #002e74;
+    color: #f2f45f;
+    padding: 10px;
+    justify-content: center;
+    font-size: 150px;
+    border-radius: 30px;
+    margin-bottom: 20px;
+}
+
+.notFound {
+    border-radius: 30px;
+    background: #b3110f;
+    color: #f2f45f;
+    padding: 10px;
+    font-size: 40px;
+    justify-content: center;
+}
