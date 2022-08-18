@@ -1,45 +1,63 @@
 .theCardContainer {
-    border: 1px solid #ff0000;
     display: flex;
     flex-flow: column;
     justify-content: center;
     align-items: center;
     align-content: center;
+    text-decoration: none;
+    border: 10px solid #7D1602;
+    border-style: double;
+    border-radius: 10px;
+    background: #C92606;
+    margin: 10px;
+}
+
+.theCardContainer:hover {
+    background: #940704;
 
 }
 
 .TheTypes {
-    border: 1px solid #000000;
     display: flex;
-
+    flex-flow: row;
+    text-align: center;
 }
 
 .imgCard {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
+    margin: 0px;
+    border-radius: 0px 0px 10px 10px;
+    background: #10ACC9;
     padding: 10px;
-    border-radius: 50px;
-
 }
 
 .imgCard:hover {
-    /* background: #ffffff3f; */
+
     background-image: url('../images/backgroundCardTwo.gif');
-    opacity: 0.8;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .nameCard {
-    border: 1px solid #88ff00;
+    border-radius: 30px;
+    text-decoration: none;
     text-transform: uppercase;
     font-size: 20px;
+    font-weight: 700;
+    padding: 5px;
+    background: #0A2E7D;
+    color: #ffffff;
+    margin-top: 5px;
 }
 
+
 .typeCard {
-    border: 1px solid #ff00b3;
-    padding: 3px;
+
     text-transform: uppercase;
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 900;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #06C97D;
+    margin-bottom: 2px;
 }

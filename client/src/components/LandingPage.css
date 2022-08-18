@@ -1,5 +1,6 @@
 body {
     background-color: #57d3f7;
+    text-decoration: none;
 
 }
 
@@ -10,7 +11,6 @@ body {
     align-content: center;
     align-items: center;
     height: 650px;
-
     background-image: url('../images/confeti.gif');
 
 
