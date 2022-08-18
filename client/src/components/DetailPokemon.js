@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getPokemonById, resetDetail } from '../redux/actions'
 import NavBar from './NavBar'
 import './DetailPokemon.css'
+import Loader from './Loader'
 
 function DetailPokemon() {
     const navigate = useNavigate();
@@ -14,7 +15,6 @@ function DetailPokemon() {
 
     useEffect(() => {
         dispatch(getPokemonById(id))
-        // cuando se desmonta dispatcha la funcion que resetea el estado detail
 
     }, [id, dispatch])
 
@@ -50,12 +50,14 @@ function DetailPokemon() {
                             </div>
 
                         </div>
-                        : <h3>Loading</h3>
+                        : <div className='loadingLoader'><Loader /></div>
                 }
+            </div >
+            <div className='detail-container' >
+                <button className='buttonBack' onClick={onNavigateBack}>
+                    Go Back
+                </button>
             </div>
-            <button onClick={onNavigateBack}>
-                Back
-            </button>
         </div>
     )
 }

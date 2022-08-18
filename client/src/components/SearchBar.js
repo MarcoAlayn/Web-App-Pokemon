@@ -25,7 +25,7 @@ export default function SearchBar() {
     return (
         <div className='searchBar' >
             <form onSubmit={e => handleSubmit(e)}>
-                <input className='searchBarInput' type='text' placeholder="Pokemon name..." value={name} onChange={e => handleChange(e)} />
+                <input className='searchBarInput' type='text' placeholder="Pokemon name or id..." value={name} onChange={e => handleChange(e)} />
                 <button className='searchBarButton' type='submit' >Search</button>
             </form>
         </div>

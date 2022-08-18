@@ -16,7 +16,7 @@ function Pagination({ pokemonsPerPage, allPokemons, paginado, currentPage }) {
         <nav className='pagination'>
 
             <div className="number-of-page">
-                <span>Page: </span>
+                <span className='space'>Page: </span>
                 {currentPage} of {totalPages}
             </div>
 

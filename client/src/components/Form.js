@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getAllTypes, postPokemon, getAllPokemons, getPokemonByName } from '../redux/actions'
 import { useNavigate } from 'react-router-dom'
 import defaultImage from '../images/default.png'
 import './Form.css'
+import { resetDetail } from '../redux/actions'
 
 const validate = (personaje, pokemonNames) => {
     let errors = [];
     let RegExpression = /^[a-zA-Z\s]*$/;
+
+
 
     if (!personaje.name) {
         errors.name = 'Name is required'
@@ -96,6 +99,12 @@ export default function Formulario() {
         })
     }
 
+    const onNavigateBack = () => {
+
+        dispatch(resetDetail())
+        return navigate(-1)
+    }
+
     return (
         <div className="formContainer" >
             <h1 className='titleForm'>Enter the values ​​and create your pokemon</h1>
@@ -177,6 +186,11 @@ export default function Formulario() {
                 </div>
                 <button className='create-button' type='submit' >CREATE YOUR POKEMON</button>
             </form>
+            <div className='detail-container' >
+                <button className='buttonBack' onClick={onNavigateBack}>
+                    Go Back
+                </button>
+            </div>
         </div>
 
     )

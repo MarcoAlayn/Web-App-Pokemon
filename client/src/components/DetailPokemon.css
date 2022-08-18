@@ -63,3 +63,36 @@
     font-size: 25px;
 
 }
+
+.loadingLoader {
+    width: 100%;
+    margin-top: 30Vh;
+
+}
+
+.buttonBack {
+    display: flex;
+    flex-flow: row;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    border-radius: 50px;
+    background: #b3110f;
+    color: #ffffff;
+    font-size: large;
+    font-weight: 700;
+    margin: 12px;
+    height: 40px;
+
+}
+
+.buttonBack:hover {
+    background: #ffffff;
+    color: #b3110f;
+}
+
+.buttonBack:active {
+    background: #f2f45f;
+    color: #b3110f;
+}

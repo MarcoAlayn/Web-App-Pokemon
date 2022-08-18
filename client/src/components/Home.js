@@ -6,11 +6,15 @@ import Pagination from "./Pagination"
 import PokeCard from "./PokeCard"
 import SearchBar from "./SearchBar"
 import NavBar from './NavBar'
+import { useNavigate } from 'react-router-dom'
+import Loader from './Loader'
 import './Home.css'
 
 const Home = () => {
     const allPokemons = useSelector(state => state.allPokemons)
     const allTypes = useSelector(state => state.allTypes)
+    const navigate = useNavigate()
+
 
     const dispatch = useDispatch();
 
@@ -74,62 +78,79 @@ const Home = () => {
         e.target.value = "default"
     }
 
+    const onNavigateBack = () => {
+        dispatch(resetDetail())
+
+        if (allPokemons.length < 2) {
+
+            dispatch(getAllPokemons())
+            dispatch(getAllTypes())
+        }
+        return navigate('/home')
+    }
+
     return (
         <div className="container" >
-            <NavBar />
-            <form className="mods">
-                <button className="buttons" onClick={handleRefresh}>Refresh Pokemon List</button>
-                <div className="allFilters">
-                    {/* ordenamientos */}
-                    <div className="filtro">
-                        <span className="nameOption" >Order By Name</span>
-                        <select className="select" onChange={e => handleOrderByName(e)} >
-                            <option value="default">Select Order</option>
-                            <option value="asc">A-Z</option>
-                            <option value="desc">Z-A</option>
-                        </select>
+            <div>{
+                allPokemons.length > 1 && <form className="mods">
+                    <NavBar />
+                    <button className="buttons" onClick={handleRefresh}>Refresh Pokemon List</button>
+                    <div className="allFilters">
+                        {/* ordenamientos */}
+                        <div className="filtro">
+                            <span className="nameOption" >Order By Name</span>
+                            <select className="select" onChange={e => handleOrderByName(e)} >
+                                <option value="default">Select Order</option>
+                                <option value="asc">A-Z</option>
+                                <option value="desc">Z-A</option>
+                            </select>
+                        </div>
+                        <div className="filtro">
+                            <span className="nameOption" >Order by Attack</span>
+                            <select className="select" onChange={e => handleOrderByAttack(e)}>
+                                <option value="default">Select Order</option>
+                                <option value="highest" >highest attack</option>
+                                <option value="least" >least attack</option>
+                            </select>
+                        </div>
+                        {/* filtros */}
+                        <div className="filtro">
+                            <span className="nameOption" >Filter By Type</span>
+                            <select className="select" onChange={e => handleFilterByType(e)} >
+                                <option value="default">Select Type</option>
+                                {
+                                    allTypes && allTypes.map(type => {
+                                        return <option value={type.name} key={type.id} onChange={e => handleFilterByType(e)}>{type.name}</option>
+                                    })
+                                }
+                            </select>
+                        </div>
+                        <div className="filtro">
+                            <span className="nameOption" >Filter By Origin</span>
+                            <select className="select" onChange={e => handleFilterByOrigin(e)}>
+                                <option value="default">Select Origin</option>
+                                <option value="api" >Originals</option>
+                                <option value="create">Created By User</option>
+                            </select>
+                        </div>
                     </div>
-                    <div className="filtro">
-                        <span className="nameOption" >Order by Attack</span>
-                        <select className="select" onChange={e => handleOrderByAttack(e)}>
-                            <option value="default">Select Order</option>
-                            <option value="highest" >highest attack</option>
-                            <option value="least" >least attack</option>
-                        </select>
-                    </div>
-                    {/* filtros */}
-                    <div className="filtro">
-                        <span className="nameOption" >Filter By Type</span>
-                        <select className="select" onChange={e => handleFilterByType(e)} >
-                            <option value="default">Select Type</option>
-                            {
-                                allTypes && allTypes.map(type => {
-                                    return <option value={type.name} key={type.id} onChange={e => handleFilterByType(e)}>{type.name}</option>
-                                })
-                            }
-                        </select>
-                    </div>
-                    <div className="filtro">
-                        <span className="nameOption" >Filter By Origin</span>
-                        <select className="select" onChange={e => handleFilterByOrigin(e)}>
-                            <option value="default">Select Origin</option>
-                            <option value="api" >Originals</option>
-                            <option value="create">Created By User</option>
-                        </select>
-                    </div>
+                </form >
+
+            }</div>
+            <div>{
+                allPokemons.length > 12 &&
+                <div className="paginacion">
+                    {
+                        currentPokemons.length ?
+                            < Pagination
+                                pokemonsPerPage={pokemonsPerPage}
+                                allPokemons={allPokemons}
+                                paginado={paginado}
+                                currentPage={currentPage}
+                            /> : null
+                    }
                 </div>
-            </form >
-            <div className="paginacion">
-                {
-                    currentPokemons.length ?
-                        < Pagination
-                            pokemonsPerPage={pokemonsPerPage}
-                            allPokemons={allPokemons}
-                            paginado={paginado}
-                            currentPage={currentPage}
-                        /> : null
-                }
-            </div>
+            }</div>
             <SearchBar />
             <div className="cards">
                 {
@@ -138,20 +159,29 @@ const Home = () => {
                             <Link style={{ textDecoration: 'none' }} key={pokemon.id} to={`/detail/${pokemon.id}`} >
                                 <PokeCard image={pokemon.image} name={pokemon.name} typeOne={pokemon.type} />
                             </Link>)
-                            : <h3>Loading Pokemons...</h3>
+                            : <div className="myLoader" ><Loader /></div>
                 }
 
             </div>
-            <div className="paginacion">
-                {
-                    currentPokemons.length ?
-                        < Pagination
-                            pokemonsPerPage={pokemonsPerPage}
-                            allPokemons={allPokemons}
-                            paginado={paginado}
-                            currentPage={currentPage}
-                        /> : null
-                }
+            <div>{
+                allPokemons.length > 12 &&
+                <div className="paginacion">
+                    {
+                        currentPokemons.length ?
+                            < Pagination
+                                pokemonsPerPage={pokemonsPerPage}
+                                allPokemons={allPokemons}
+                                paginado={paginado}
+                                currentPage={currentPage}
+                            /> : null
+                    }
+                </div>
+            }</div>
+
+            <div className='detail-container' >{allPokemons.length < 2 &&
+                <button className='buttonBack' onClick={onNavigateBack}>
+                    Back to Home
+                </button>}
             </div>
         </div >
     )

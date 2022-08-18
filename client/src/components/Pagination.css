@@ -98,3 +98,7 @@
     -webkit-border-radius: 0 30px 30px 0;
     border-radius: 0 30px 30px 0;
 }
+
+.space {
+    margin-right: 3px;
+}

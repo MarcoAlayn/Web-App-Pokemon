@@ -19,6 +19,7 @@
     font-size: medium;
     font-weight: 700;
     cursor: pointer;
+    margin-left: 3px;
 }
 
 .searchBarButton:hover {
